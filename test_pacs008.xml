@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSG20240508001</MsgId>
+      <CreDtTm>2024-05-08T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <TtlIntrBkSttlmAmt Ccy="USD">1000.00</TtlIntrBkSttlmAmt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>E2E20240508001</EndToEndId>
+        <TxId>TX20240508001</TxId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">1000.00</IntrBkSttlmAmt>
+      <Dbtr>
+        <Nm>Acme Corporation</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>CHASUS33</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <Cdtr>
+        <Nm>Global Supplies Ltd</Nm>
+      </Cdtr>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEDB</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>
