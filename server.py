@@ -57,5 +57,20 @@ def parse_pain001(xml: str) -> dict:
     "creditor": root.find(".//iso:CdtTrfTxInf/iso:Cdtr/iso:Nm", ns).text,
   }
 
+@mcp.tool()
+def validate_pain001(xml: str) -> dict:
+  """Validate that an XML string parses as a pain.001 ISO 20022 CustomerCreditTransferInitiation message."""
+  try:
+    root = ET.fromstring(xml)
+    ns = {"iso": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.09"}
+    required = [".//iso:GrpHdr/iso:MsgId", ".//iso:GrpHdr/iso:NbOfTxs", ".//iso:GrpHdr/iso:CtrlSum",
+                ".//iso:Dbtr/iso:Nm", ".//iso:DbtrAcct/iso:Id/iso:IBAN", ".//iso:CdtTrfTxInf/iso:Cdtr/iso:Nm"]
+    for path in required:
+      if root.find(path, ns) is None:
+        return {"valid": False, "error": f"missing required element: {path}"}
+    return {"valid": True}
+  except ET.ParseError as e:
+    return {"valid": False, "error": f"XML parse error: {e}"}
+
 if __name__ == "__main__":
   mcp.run()
