@@ -24,5 +24,23 @@ def parse_pacs008(xml: str) -> dict:
     "creditor_bic": root.find(".//iso:CdtrAgt//iso:BICFI", ns).text,
   }
 
+@mcp.tool()
+def validate_pacs008(xml: str) -> dict:
+  """Validate that an XML string parses as a pacs.008 ISO 20022 payment message."""
+  try:
+    root = ET.fromstring(xml)
+    ns = {"iso": "urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"}
+    required = [".//iso:MsgId", ".//iso:IntrBkSttlmAmt", ".//iso:Dbtr/iso:Nm",
+                ".//iso:DbtrAgt//iso:BICFI", ".//iso:Cdtr/iso:Nm", ".//iso:CdtrAgt//iso:BICFI"]
+    for path in required:
+      el = root.find(path, ns)
+      if el is None:
+        return {"valid": False, "error": f"missing required element: {path}"}
+    if "Ccy" not in root.find(".//iso:IntrBkSttlmAmt", ns).attrib:
+      return {"valid": False, "error": "missing Ccy attribute on IntrBkSttlmAmt"}
+    return {"valid": True}
+  except ET.ParseError as e:
+    return {"valid": False, "error": f"XML parse error: {e}"}
+
 if __name__ == "__main__":
   mcp.run()
