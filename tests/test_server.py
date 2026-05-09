@@ -4,6 +4,7 @@ import sys
 import pytest
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+FIXTURES = pathlib.Path(__file__).resolve().parent / "fixtures"
 sys.path.insert(0, str(ROOT))
 
 from server import (
@@ -18,7 +19,7 @@ from server import (
 
 
 def load(name: str) -> str:
-    return (ROOT / name).read_text()
+    return (FIXTURES / name).read_text()
 
 
 PACS008_NO_MSGID = """<?xml version="1.0"?>
