@@ -7,6 +7,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from server import (
+    convert_mt_to_mx,
     parse_camt053,
     parse_pacs008,
     parse_pain001,
@@ -63,6 +64,49 @@ CAMT053_NO_IBAN = """<?xml version="1.0"?>
 </Document>"""
 
 MALFORMED_XML = "not xml at all <<<"
+
+MT103_NO_MSGID = """:23B:CRED
+:32A:260508USD1000,00
+:59:Global Supplies Ltd
+"""
+
+MT103_BAD_32A = """:20:TESTREF
+:23B:CRED
+:32A:INVALID-NOT-A-DATE
+:59:Global Supplies Ltd
+"""
+
+
+# ---- convert_mt_to_mx ----
+
+def test_convert_mt_to_mx_happy_path():
+    result = convert_mt_to_mx(load("test_mt103.txt"))
+    assert "error" not in result
+    fm = result["field_mapping"]
+    assert fm["20"]["value"] == "TRF-2026050800001"
+    assert fm["32A"]["pacs008_field"] == "IntrBkSttlmDt + IntrBkSttlmAmt[Ccy]"
+    assert fm["52A"]["value"] == "CHASUS33"
+    # Roundtrip: generated XML must be parseable by the existing pacs.008 tool
+    parsed = parse_pacs008(result["pacs008_xml"])
+    assert parsed["message_id"] == "TRF-2026050800001"
+    assert parsed["currency"] == "USD"
+    assert parsed["amount"] == "1000.00"
+    assert parsed["debtor"] == "Acme Corporation"
+    assert parsed["debtor_bic"] == "CHASUS33"
+    assert parsed["creditor"] == "Global Supplies Ltd"
+    assert parsed["creditor_bic"] == "DEUTDEDB"
+
+
+def test_convert_mt_to_mx_missing_mandatory():
+    result = convert_mt_to_mx(MT103_NO_MSGID)
+    assert "error" in result
+    assert ":20:" in result["error"]
+
+
+def test_convert_mt_to_mx_malformed_tag():
+    result = convert_mt_to_mx(MT103_BAD_32A)
+    assert "error" in result
+    assert ":32A:" in result["error"]
 
 
 # ---- pacs.008 ----

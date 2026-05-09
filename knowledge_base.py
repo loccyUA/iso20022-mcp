@@ -48,7 +48,7 @@ CHUNKS: list[dict[str, str]] = [
     "text": (
       "A BIC (Business Identifier Code, formerly SWIFT code) uniquely identifies a "
       "financial institution. It is 8 or 11 characters: 4-letter bank code, 2-letter "
-      "ISO country code, 2-character location code, and an optional 3-character branch "
+      "ISO counctry code, 2-character location code, and an optional 3-character branch "
       "code. In ISO 20022 it appears as <BICFI> inside <FinInstnId>."
     ),
   },
@@ -156,14 +156,20 @@ CHUNKS: list[dict[str, str]] = [
 ]
 
 
-_client = chromadb.PersistentClient(path="./chroma_db")
-_embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-  model_name="all-MiniLM-L6-v2"
-)
+_client = None
+_embed_fn = None
+_col = None
 
 
 def _collection():
-  return _client.get_or_create_collection(name="iso20022", embedding_function=_embed_fn)
+  global _client, _embed_fn, _col
+  if _col is None:
+    _client = chromadb.PersistentClient(path="./chroma_db")
+    _embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+      model_name="all-MiniLM-L6-v2"
+    )
+    _col = _client.get_or_create_collection(name="iso20022", embedding_function=_embed_fn)
+  return _col
 
 
 def build() -> None:

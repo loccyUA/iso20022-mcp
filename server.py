@@ -17,6 +17,49 @@ CAMT053_NS = {"iso": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"}
 
 _MSGID_RE = re.compile(r"<(?:[^:>\s]+:)?MsgId\b[^>]*>([^<]+)</")
 
+# MT103 → pacs.008 helpers
+_MT_BLOCK4_RE = re.compile(r"\{4:(.*?)-\}", re.DOTALL)
+_MT_TAG_RE = re.compile(r":(\d{2}[A-Z]?):(.*?)(?=:\d{2}[A-Z]?:|$)", re.DOTALL)
+_MT32A_RE = re.compile(r"^(\d{6})([A-Z]{3})([\d,]+)$")
+_MT33B_RE = re.compile(r"^([A-Z]{3})([\d,]+)$")
+_MT103_MANDATORY = {"20", "23B", "32A", "59"}
+_MT103_TAG_MAP = {
+  "20": "GrpHdr/MsgId",
+  "23B": "SvcLvl/Cd",
+  "32A": "IntrBkSttlmDt + IntrBkSttlmAmt[Ccy]",
+  "33B": "InstdAmt[Ccy]",
+  "50K": "Dbtr/Nm",
+  "52A": "DbtrAgt/FinInstnId/BICFI",
+  "57A": "CdtrAgt/FinInstnId/BICFI",
+  "59": "Cdtr/Nm",
+  "70": "RmtInf/Ustrd",
+  "71A": "ChrgBr",
+}
+_CHRGBR_MAP = {"OUR": "DEBT", "BEN": "CRED", "SHA": "SHAR"}
+_PACS008_URI = "urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"
+
+
+def _parse_mt103_tags(text: str) -> dict[str, str]:
+  return {m.group(1): m.group(2).strip() for m in _MT_TAG_RE.finditer(text)}
+
+
+def _mt_account_and_name(raw: str) -> tuple[str | None, str]:
+  lines = [line.strip() for line in raw.splitlines() if line.strip()]
+  if not lines:
+    return None, ""
+  if lines[0].startswith("/"):
+    iban = lines[0][1:].strip() or None
+    return iban, (lines[1] if len(lines) > 1 else "")
+  return None, lines[0]
+
+
+def _mt_amount(raw: str) -> str:
+  return raw.replace(",", ".")
+
+
+def _mt_date(yymmdd: str) -> str:
+  return f"20{yymmdd[:2]}-{yymmdd[2:4]}-{yymmdd[4:6]}"
+
 
 def _empty(xml: str) -> bool:
   return not xml or not xml.strip()
@@ -212,6 +255,114 @@ def explain_iso20022(question: str) -> dict[str, Any]:
     "answer": "\n\n".join(h["text"] for h in hits),
     "sources": [h["topic"] for h in hits],
   }
+
+
+@mcp.tool()
+def convert_mt_to_mx(mt103: str) -> dict[str, Any]:
+  """Convert an MT103 SWIFT message string to a pacs.008 ISO 20022 XML message.
+
+  Input: MT103 SWIFT message string (with or without SWIFT block headers).
+  Output: dict with keys field_mapping (MT103 tag → pacs.008 field name and parsed value)
+          and pacs008_xml (a valid pacs.008 XML string);
+          or {"error": "..."} on empty input, missing mandatory tags, or malformed values.
+  """
+  _log_call("convert_mt_to_mx", mt103)
+  if _empty(mt103):
+    return {"error": "empty input"}
+
+  block4 = _MT_BLOCK4_RE.search(mt103)
+  body = block4.group(1) if block4 else mt103
+  tags = _parse_mt103_tags(body)
+
+  for tag in _MT103_MANDATORY:
+    if tag not in tags:
+      return {"error": f"missing mandatory tag: :{tag}:"}
+
+  m32a = _MT32A_RE.match(tags["32A"])
+  if not m32a:
+    return {"error": "malformed tag :32A:: expected YYMMDDCCCAMOUNT (e.g. 260508USD1000,00)"}
+
+  sttlm_date = _mt_date(m32a.group(1))
+  currency = m32a.group(2)
+  amount = _mt_amount(m32a.group(3))
+
+  instd_ccy = instd_amt = None
+  if "33B" in tags:
+    m33b = _MT33B_RE.match(tags["33B"])
+    if not m33b:
+      return {"error": "malformed tag :33B:: expected CCCAMOUNT (e.g. USD1000,00)"}
+    instd_ccy, instd_amt = m33b.group(1), _mt_amount(m33b.group(2))
+
+  dbtr_iban, dbtr_name = _mt_account_and_name(tags.get("50K", ""))
+  cdtr_iban, cdtr_name = _mt_account_and_name(tags["59"])
+  chrg_br = _CHRGBR_MAP.get(tags.get("71A", ""), "SHAR")
+  dbtr_bic = tags.get("52A", "")
+  cdtr_bic = tags.get("57A", "")
+  rmt_info = tags.get("70", "")
+
+  field_mapping = {
+    tag: {"pacs008_field": _MT103_TAG_MAP[tag], "value": tags[tag]}
+    for tag in _MT103_TAG_MAP
+    if tag in tags
+  }
+
+  ET.register_namespace("", _PACS008_URI)
+  ns = _PACS008_URI
+
+  def el(parent, local):
+    return ET.SubElement(parent, f"{{{ns}}}{local}")
+
+  doc = ET.Element(f"{{{ns}}}Document")
+  fi = el(doc, "FIToFICstmrCdtTrf")
+
+  grp = el(fi, "GrpHdr")
+  el(grp, "MsgId").text = tags["20"]
+  el(grp, "CreDtTm").text = f"{sttlm_date}T00:00:00"
+  el(grp, "NbOfTxs").text = "1"
+  el(el(grp, "SttlmInf"), "SttlmMtd").text = "CLRG"
+
+  cdt = el(fi, "CdtTrfTxInf")
+  pmt_id = el(cdt, "PmtId")
+  el(pmt_id, "InstrId").text = tags["20"]
+  el(pmt_id, "EndToEndId").text = tags["20"]
+
+  amt_el = el(cdt, "IntrBkSttlmAmt")
+  amt_el.text = amount
+  amt_el.set("Ccy", currency)
+  el(cdt, "IntrBkSttlmDt").text = sttlm_date
+
+  if instd_ccy:
+    ia = el(cdt, "InstdAmt")
+    ia.text = instd_amt
+    ia.set("Ccy", instd_ccy)
+
+  el(cdt, "ChrgBr").text = chrg_br
+
+  if dbtr_bic:
+    dbtr_agt = el(cdt, "DbtrAgt")
+    el(el(dbtr_agt, "FinInstnId"), "BICFI").text = dbtr_bic
+
+  el(el(cdt, "Dbtr"), "Nm").text = dbtr_name
+
+  if dbtr_iban:
+    el(el(el(cdt, "DbtrAcct"), "Id"), "IBAN").text = dbtr_iban
+
+  if cdtr_bic:
+    cdtr_agt = el(cdt, "CdtrAgt")
+    el(el(cdtr_agt, "FinInstnId"), "BICFI").text = cdtr_bic
+
+  el(el(cdt, "Cdtr"), "Nm").text = cdtr_name
+
+  if cdtr_iban:
+    el(el(el(cdt, "CdtrAcct"), "Id"), "IBAN").text = cdtr_iban
+
+  if rmt_info:
+    el(el(cdt, "RmtInf"), "Ustrd").text = rmt_info
+
+  ET.indent(doc, space="  ")
+  pacs008_xml = f'<?xml version="1.0" encoding="UTF-8"?>\n{ET.tostring(doc, encoding="unicode")}'
+
+  return {"field_mapping": field_mapping, "pacs008_xml": pacs008_xml}
 
 
 if __name__ == "__main__":
