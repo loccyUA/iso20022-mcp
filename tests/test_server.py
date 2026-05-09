@@ -76,6 +76,30 @@ MT103_BAD_32A = """:20:TESTREF
 :59:Global Supplies Ltd
 """
 
+# Party fields: IBAN and name on separate lines (standard SWIFT format)
+MT103_PARTY_MULTILINE = """:20:PARTY-MULTI-001
+:23B:CRED
+:32A:260509EUR500,00
+:50K:/GB29NWBK60161331926819
+Acme Corp
+:52A:NWBKGB2L
+:57A:DEUTDEDB
+:59:/DE89370400440532013000
+Global Supplies Ltd
+:71A:SHA
+"""
+
+# Party fields: IBAN and name on the same line, space-separated (real-world variant)
+MT103_PARTY_SAMELINE = """:20:PARTY-SAME-001
+:23B:CRED
+:32A:260509EUR500,00
+:50K:/GB29NWBK60161331926819 Acme Corp
+:52A:NWBKGB2L
+:57A:DEUTDEDB
+:59:/DE89370400440532013000 Global Supplies Ltd
+:71A:SHA
+"""
+
 
 # ---- convert_mt_to_mx ----
 
@@ -107,6 +131,38 @@ def test_convert_mt_to_mx_malformed_tag():
     result = convert_mt_to_mx(MT103_BAD_32A)
     assert "error" in result
     assert ":32A:" in result["error"]
+
+
+def _party_fields(xml: str) -> dict:
+    import xml.etree.ElementTree as ET
+    root = ET.fromstring(xml)
+    ns = {"iso": "urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"}
+    return {
+        "dbtr_nm":   root.find(".//iso:Dbtr/iso:Nm", ns).text,
+        "dbtr_iban": root.find(".//iso:DbtrAcct/iso:Id/iso:IBAN", ns).text,
+        "cdtr_nm":   root.find(".//iso:Cdtr/iso:Nm", ns).text,
+        "cdtr_iban": root.find(".//iso:CdtrAcct/iso:Id/iso:IBAN", ns).text,
+    }
+
+
+def test_convert_mt_to_mx_party_multiline():
+    result = convert_mt_to_mx(MT103_PARTY_MULTILINE)
+    assert "error" not in result
+    p = _party_fields(result["pacs008_xml"])
+    assert p["dbtr_nm"] == "Acme Corp"
+    assert p["dbtr_iban"] == "GB29NWBK60161331926819"
+    assert p["cdtr_nm"] == "Global Supplies Ltd"
+    assert p["cdtr_iban"] == "DE89370400440532013000"
+
+
+def test_convert_mt_to_mx_party_sameline():
+    result = convert_mt_to_mx(MT103_PARTY_SAMELINE)
+    assert "error" not in result
+    p = _party_fields(result["pacs008_xml"])
+    assert p["dbtr_nm"] == "Acme Corp"
+    assert p["dbtr_iban"] == "GB29NWBK60161331926819"
+    assert p["cdtr_nm"] == "Global Supplies Ltd"
+    assert p["cdtr_iban"] == "DE89370400440532013000"
 
 
 # ---- pacs.008 ----

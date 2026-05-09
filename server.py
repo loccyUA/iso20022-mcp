@@ -40,17 +40,39 @@ _PACS008_URI = "urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"
 
 
 def _parse_mt103_tags(text: str) -> dict[str, str]:
-  return {m.group(1): m.group(2).strip() for m in _MT_TAG_RE.finditer(text)}
+  tags: dict[str, list[str]] = {}
+  current: str | None = None
+  for line in text.splitlines():
+    m = re.match(r":(\d{2}[A-Z]?):(.*)", line)
+    if m:
+      current = m.group(1)
+      tags[current] = [m.group(2)]
+    elif current is not None:
+      tags[current].append(line)
+  return {tag: "\n".join(lines).strip() for tag, lines in tags.items()}
 
 
 def _mt_account_and_name(raw: str) -> tuple[str | None, str]:
-  lines = [line.strip() for line in raw.splitlines() if line.strip()]
-  if not lines:
-    return None, ""
-  if lines[0].startswith("/"):
-    iban = lines[0][1:].strip() or None
-    return iban, (lines[1] if len(lines) > 1 else "")
-  return None, lines[0]
+  iban = None
+  name = ""
+  iban_consumed = False
+  for line in raw.splitlines():
+    line = line.strip()
+    if not line:
+      continue
+    if not iban_consumed and line.startswith("/"):
+      account = line[1:].strip()
+      space = account.find(" ")
+      if space != -1:
+        iban = account[:space] or None
+        name = account[space + 1:].strip()
+        return iban, name
+      iban = account or None
+      iban_consumed = True
+      continue
+    name = line
+    break
+  return iban, name
 
 
 def _mt_amount(raw: str) -> str:
