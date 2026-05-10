@@ -1,5 +1,7 @@
 # Pactus
 
+[![CI](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml)
+
 Pactus is an MCP server that lets AI assistants parse ISO 20022 payment messages directly from chat. It currently supports `pacs.008.001.08` (FI-to-FI Customer Credit Transfer); `pacs.002`, `pain.001`, and `camt.053` are scaffolded for upcoming releases.
 
 ## Why this exists
