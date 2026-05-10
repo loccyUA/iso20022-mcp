@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSGMULTI-20260509-001</MsgId>
+      <CreDtTm>2026-05-09T14:30:00</CreDtTm>
+      <NbOfTxs>3</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>E2E-001</EndToEndId>
+        <TxId>TX-001</TxId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="EUR">1500.00</IntrBkSttlmAmt>
+      <ChrgBr>SHAR</ChrgBr>
+      <Dbtr>
+        <Nm>Mueller GmbH</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFF</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>BNPAFRPP</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Dupont SARL</Nm>
+      </Cdtr>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>E2E-002</EndToEndId>
+        <TxId>TX-002</TxId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="EUR">250.50</IntrBkSttlmAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <Dbtr>
+        <Nm>Nordea Bank Abp</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>NDEAFIHH</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>BSCHESMM</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Banco Santander</Nm>
+      </Cdtr>
+      <RmtInf>
+        <Ustrd>Invoice 2026-Q2-447</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>E2E-003</EndToEndId>
+        <TxId>TX-003</TxId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">9999.99</IntrBkSttlmAmt>
+      <ChrgBr>CRED</ChrgBr>
+      <Dbtr>
+        <Nm>Acme International</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>CHASUS33</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>HSBCGB2L</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Globex Trading Ltd</Nm>
+      </Cdtr>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>
