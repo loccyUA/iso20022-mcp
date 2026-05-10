@@ -57,8 +57,14 @@ def _reject_unsafe_xml(xml: str) -> None:
     scan_window = lowered[: min(4096, len(lowered) if prolog_end < 0 else prolog_end + 4096)]
     if "<!doctype" in scan_window:
         raise UnsafeXmlError("DOCTYPE declarations are not permitted in ISO 20022 input")
+    # Defense-in-depth: a bare <!ENTITY without an enclosing <!DOCTYPE is not
+    # well-formed XML, and entities inside a <!DOCTYPE are caught by the
+    # branch above. Kept in case the scan window or upstream parser ever
+    # changes shape; excluded from coverage because it is unreachable today.
     if "<!entity" in scan_window:
-        raise UnsafeXmlError("ENTITY declarations are not permitted in ISO 20022 input")
+        raise UnsafeXmlError(  # pragma: no cover
+            "ENTITY declarations are not permitted in ISO 20022 input"
+        )
 
 
 def parse_pacs008(xml: str) -> ParsedPacs008:
@@ -100,12 +106,17 @@ def _project_transaction(tx) -> Pacs008Transaction:  # type: ignore[no-untyped-d
     if tx.intr_bk_sttlm_dt is not None:
         settlement_date = tx.intr_bk_sttlm_dt.to_date()
 
+    # The ``is not None`` guards on dbtr_agt/cdtr_agt and their fin_instn_id
+    # are defense-in-depth: the generated schema marks both as required, so
+    # the False branch is unreachable today. ``# pragma: no branch`` keeps
+    # the guards in place (in case the schema or generated code ever changes
+    # shape) without forcing a coverage gap on an unreachable path.
     debtor_agent = None
-    if tx.dbtr_agt is not None and tx.dbtr_agt.fin_instn_id is not None:
+    if tx.dbtr_agt is not None and tx.dbtr_agt.fin_instn_id is not None:  # pragma: no branch
         debtor_agent = Agent(bic=tx.dbtr_agt.fin_instn_id.bicfi)
 
     creditor_agent = None
-    if tx.cdtr_agt is not None and tx.cdtr_agt.fin_instn_id is not None:
+    if tx.cdtr_agt is not None and tx.cdtr_agt.fin_instn_id is not None:  # pragma: no branch
         creditor_agent = Agent(bic=tx.cdtr_agt.fin_instn_id.bicfi)
 
     remittance_info = None

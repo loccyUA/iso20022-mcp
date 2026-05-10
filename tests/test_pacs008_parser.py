@@ -157,3 +157,81 @@ class TestSchemaExportableForLLM:
         assert "(?<" not in schema_str, (
             "JSON schema contains look-behind regex — MCP clients will reject it"
         )
+
+    def test_money_decimal_rejects_unsupported_type(self) -> None:
+        """MoneyDecimal must reject types it can't safely coerce.
+
+        Covers the ``raise TypeError`` branch in ``_coerce_to_decimal``.
+        Pydantic propagates ``TypeError`` from a ``BeforeValidator`` rather
+        than wrapping it in ``ValidationError``, so we accept either.
+        """
+        from pydantic import ValidationError
+
+        from pactus.core.domain.common import Amount
+
+        with pytest.raises((ValidationError, TypeError)):
+            Amount(value={"not": "a number"}, currency="USD")  # type: ignore[arg-type]
+
+    def test_money_decimal_coerces_string_input(self) -> None:
+        """MoneyDecimal must accept string input and coerce to Decimal.
+
+        Covers the str/int/float coercion branch in ``_coerce_to_decimal``.
+        The parser only ever feeds in Decimal, so this is the only path
+        that exercises the string-coercion line.
+        """
+        from pactus.core.domain.common import Amount
+
+        amt = Amount(value="123.45", currency="USD")  # type: ignore[arg-type]
+        assert amt.value == Decimal("123.45")
+
+
+class TestParsePacs008OptionalFieldHandling:
+    """Optional-field branches in parse_pacs008.
+
+    These tests close the branch-coverage gaps surfaced when branch
+    measurement was enabled.
+    """
+
+    def test_settlement_date_parsed_when_present(self) -> None:
+        """When <IntrBkSttlmDt> is present, it must be projected as a date.
+
+        Covers the ``tx.intr_bk_sttlm_dt is not None`` True branch in
+        _project_transaction. Existing fixtures omit the field, so this
+        is the only test that exercises the date-projection path.
+        """
+        from datetime import date
+
+        xml = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSG-WITH-SETTLE-DATE</MsgId>
+      <CreDtTm>2026-05-10T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf><SttlmMtd>CLRG</SttlmMtd></SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId><EndToEndId>E2E-WD-001</EndToEndId></PmtId>
+      <IntrBkSttlmAmt Ccy="USD">100.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-05-12</IntrBkSttlmDt>
+      <ChrgBr>SHAR</ChrgBr>
+      <Dbtr><Nm>Test Debtor</Nm></Dbtr>
+      <DbtrAgt><FinInstnId><BICFI>CHASUS33</BICFI></FinInstnId></DbtrAgt>
+      <CdtrAgt><FinInstnId><BICFI>DEUTDEDB</BICFI></FinInstnId></CdtrAgt>
+      <Cdtr><Nm>Test Creditor</Nm></Cdtr>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>"""
+        result = parse_pacs008(xml)
+        assert result.transactions[0].settlement_date == date(2026, 5, 12)
+
+    def test_remittance_info_omitted_yields_none(self) -> None:
+        """When <RmtInf> is absent, remittance_info must be None.
+
+        Covers the ``tx.rmt_inf is not None`` False branch.
+        """
+        from tests.conftest import FIXTURES_DIR
+
+        xml = (FIXTURES_DIR / "test_pacs008.xml").read_text(encoding="utf-8")
+        result = parse_pacs008(xml)
+        assert result.transactions[0].remittance_info is None

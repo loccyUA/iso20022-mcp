@@ -74,10 +74,28 @@ files = ["src/pactus"]
 exclude = ["src/pactus/generated", "legacy"]
 
 [[tool.mypy.overrides]]
-module = ["sentence_transformers.*", "xsdata.*", "lxml.*"]
+module = ["sentence_transformers.*", "xsdata.*", "lxml.*", "pactus.generated.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
-addopts = ["-ra", "--strict-markers", "--cov=pactus", "--cov-report=term-missing"]
+addopts = ["-ra", "--strict-markers", "--cov", "--cov-report=term-missing"]
+
+[tool.coverage.run]
+source = ["src/pactus"]
+omit = [
+    "src/pactus/generated/*",
+    "src/pactus/mcp_server.py",
+]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 90
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "pragma: no cover",
+]

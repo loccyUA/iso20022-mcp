@@ -45,5 +45,5 @@ jobs:
       - name: Mypy strict
         run: uv run mypy
 
-      - name: Run pytest with coverage gate on pactus.core
-        run: uv run pytest -o "addopts=-ra --strict-markers" --cov=pactus.core --cov-report=term-missing --cov-fail-under=90 -q
+      - name: Run pytest with coverage gate
+        run: uv run pytest -q
