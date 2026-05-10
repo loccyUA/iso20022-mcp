@@ -23,6 +23,30 @@ including their original CRLF line endings as published upstream. The
 bytes byte-for-byte across all platforms. To verify a hash locally on any
 OS: `sha256sum src/pactus/schemas/pacs.008.001.08.xsd`.
 
+## Build pipeline integrity
+
+The vendored XSDs are the start of a cryptographically verified chain from
+upstream schema files to passing tests:
+
+1. **XSD provenance** — the four `.xsd` files in this directory are pinned
+   to a specific commit of `phoughton/pyiso20022` (see Provenance above)
+   and their SHA-256 hashes are documented in the table.
+2. **Code generation** — `scripts/generate_models.py` runs xsdata against
+   the vendored XSDs and writes Pydantic V2 models to
+   `src/pactus/generated/`. The generated `*.py` files are intentionally
+   not committed; they are reproducible from the XSDs.
+3. **Generated output verification** — the canonical SHA-256 hashes of
+   the generated files (computed on Linux, the CI platform of record)
+   are committed in `src/pactus/generated/GENERATED_HASHES.txt`. CI
+   regenerates the files on every run and verifies them against this
+   hash file with `sha256sum -c`.
+
+Any link in this chain that breaks fails CI loudly. To deliberately
+update the canonical hashes (e.g. after upgrading xsdata or replacing a
+vendored XSD), regenerate locally on Linux, copy the new `sha256sum`
+output into `GENERATED_HASHES.txt`, and commit alongside whatever caused
+the change. CI will then verify against the new canonical output.
+
 ## Vendored files
 
 | File | Purpose | Source path | SHA-256 |

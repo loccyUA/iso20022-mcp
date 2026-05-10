@@ -36,6 +36,13 @@ jobs:
       - name: Sync dependencies (including [semantic] extras)
         run: uv sync --frozen --all-extras
 
+      - name: Generate xsdata Pydantic models
+        run: uv run python scripts/generate_models.py
+
+      - name: Verify generated models match canonical hashes
+        working-directory: src/pactus/generated
+        run: sha256sum -c GENERATED_HASHES.txt
+
       - name: Ruff lint
         run: uv run ruff check
 

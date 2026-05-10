@@ -29,11 +29,13 @@ def main() -> int:
         )
         return 1
 
-    # Wipe previous generation output, but preserve .gitkeep so the
-    # directory exists in git (even though *.py files are gitignored).
+    # Wipe previous generation output, but preserve tracked metadata files:
+    # .gitkeep keeps the directory in git, GENERATED_HASHES.txt is the
+    # canonical sha256sum manifest CI verifies regenerated output against.
+    preserved = {".gitkeep", "GENERATED_HASHES.txt"}
     if output_dir.is_dir():
         for child in output_dir.iterdir():
-            if child.name == ".gitkeep":
+            if child.name in preserved:
                 continue
             if child.is_dir():
                 shutil.rmtree(child)
