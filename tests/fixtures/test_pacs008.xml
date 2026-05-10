@@ -16,6 +16,7 @@
         <TxId>TX20240508001</TxId>
       </PmtId>
       <IntrBkSttlmAmt Ccy="USD">1000.00</IntrBkSttlmAmt>
+      <ChrgBr>SHAR</ChrgBr>
       <Dbtr>
         <Nm>Acme Corporation</Nm>
       </Dbtr>
@@ -24,14 +25,14 @@
           <BICFI>CHASUS33</BICFI>
         </FinInstnId>
       </DbtrAgt>
-      <Cdtr>
-        <Nm>Global Supplies Ltd</Nm>
-      </Cdtr>
       <CdtrAgt>
         <FinInstnId>
           <BICFI>DEUTDEDB</BICFI>
         </FinInstnId>
       </CdtrAgt>
+      <Cdtr>
+        <Nm>Global Supplies Ltd</Nm>
+      </Cdtr>
     </CdtTrfTxInf>
   </FIToFICstmrCdtTrf>
 </Document>
