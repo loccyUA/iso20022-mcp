@@ -22,7 +22,7 @@ Do not include exploit code or sensitive reproduction details in any public chan
 
 - Parsing logic in `pactus/core/parsers.py` and the domain models it populates
 - MCP transport layer (`mcp_server.py`) and its input handling
-- Build and release pipeline (CI workflows, dependency pinning, PyPI publishing)
+- Build and release pipeline (CI workflows, dependency pinning, PyPI publishing, release pipeline integrity — Sigstore attestations can be verified with `python -m sigstore verify identity`)
 
 **Out of scope:**
 

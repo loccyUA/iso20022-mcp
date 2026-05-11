@@ -215,6 +215,7 @@ All four parse tools return a structured Pydantic model on success, or `{"error"
 - **XXE and entity-expansion hardening:** All four parsers reject input containing `<!DOCTYPE>` or `<!ENTITY>` declarations before any XML parsing occurs. This blocks XXE file-read, SSRF, and billion-laughs DoS patterns.
 - **Build integrity:** Generated xsdata models are SHA-256 verified in CI on every commit (`sha256sum -c GENERATED_HASHES.txt`). Regeneration is reproducible from the vendored XSDs.
 - **Supply chain:** GitHub Actions workflows use SHA-pinned action references (commit-hash `@` pins, not mutable tags).
+- **Distribution integrity:** PyPI artifacts are published via OIDC Trusted Publishing and signed with Sigstore. SBOMs (CycloneDX and SPDX) are generated and vulnerability-scanned on every CI run; release artifacts include the SBOM.
 - **Vulnerability disclosure:** See [SECURITY.md](SECURITY.md).
 
 ## Architecture
