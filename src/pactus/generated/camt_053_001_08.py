@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 from decimal import Decimal
 from enum import Enum
+
 from pydantic import BaseModel, ConfigDict
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlPeriod
 from xsdata_pydantic.fields import field
@@ -18,7 +20,7 @@ class AccountSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -28,13 +30,15 @@ class AccountSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class ActiveCurrencyAndAmount(BaseModel):
     model_config = ConfigDict(defer_build=True)
     value: Decimal = field(
         metadata={
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
         }
@@ -43,14 +47,16 @@ class ActiveCurrencyAndAmount(BaseModel):
         metadata={
             "name": "Ccy",
             "type": "Attribute",
-            "pattern": r'[A-Z]{3,3}',
+            "pattern": r"[A-Z]{3,3}",
         }
     )
+
+
 class ActiveOrHistoricCurrencyAnd13DecimalAmount(BaseModel):
     model_config = ConfigDict(defer_build=True)
     value: Decimal = field(
         metadata={
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 13,
         }
@@ -59,14 +65,16 @@ class ActiveOrHistoricCurrencyAnd13DecimalAmount(BaseModel):
         metadata={
             "name": "Ccy",
             "type": "Attribute",
-            "pattern": r'[A-Z]{3,3}',
+            "pattern": r"[A-Z]{3,3}",
         }
     )
+
+
 class ActiveOrHistoricCurrencyAndAmount(BaseModel):
     model_config = ConfigDict(defer_build=True)
     value: Decimal = field(
         metadata={
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
         }
@@ -75,16 +83,20 @@ class ActiveOrHistoricCurrencyAndAmount(BaseModel):
         metadata={
             "name": "Ccy",
             "type": "Attribute",
-            "pattern": r'[A-Z]{3,3}',
+            "pattern": r"[A-Z]{3,3}",
         }
     )
+
+
 class AddressType2Code(Enum):
-    ADDR = 'ADDR'
-    PBOX = 'PBOX'
-    HOME = 'HOME'
-    BIZZ = 'BIZZ'
-    MLTO = 'MLTO'
-    DLVY = 'DLVY'
+    ADDR = "ADDR"
+    PBOX = "PBOX"
+    HOME = "HOME"
+    BIZZ = "BIZZ"
+    MLTO = "MLTO"
+    DLVY = "DLVY"
+
+
 class AmountRangeBoundary1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     bdry_amt: Decimal = field(
@@ -92,7 +104,7 @@ class AmountRangeBoundary1(BaseModel):
             "name": "BdryAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
         }
@@ -104,26 +116,34 @@ class AmountRangeBoundary1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class AttendanceContext1Code(Enum):
-    ATTD = 'ATTD'
-    SATT = 'SATT'
-    UATT = 'UATT'
+    ATTD = "ATTD"
+    SATT = "SATT"
+    UATT = "UATT"
+
+
 class AuthenticationEntity1Code(Enum):
-    ICCD = 'ICCD'
-    AGNT = 'AGNT'
-    MERC = 'MERC'
+    ICCD = "ICCD"
+    AGNT = "AGNT"
+    MERC = "MERC"
+
+
 class AuthenticationMethod1Code(Enum):
-    UKNW = 'UKNW'
-    BYPS = 'BYPS'
-    NPIN = 'NPIN'
-    FPIN = 'FPIN'
-    CPSG = 'CPSG'
-    PPSG = 'PPSG'
-    MANU = 'MANU'
-    MERC = 'MERC'
-    SCRT = 'SCRT'
-    SNCT = 'SNCT'
-    SCNL = 'SCNL'
+    UKNW = "UKNW"
+    BYPS = "BYPS"
+    NPIN = "NPIN"
+    FPIN = "FPIN"
+    CPSG = "CPSG"
+    PPSG = "PPSG"
+    MANU = "MANU"
+    MERC = "MERC"
+    SCRT = "SCRT"
+    SNCT = "SNCT"
+    SCNL = "SCNL"
+
+
 class BalanceSubType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -134,7 +154,7 @@ class BalanceSubType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -144,8 +164,10 @@ class BalanceSubType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class BalanceType10Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -156,7 +178,7 @@ class BalanceType10Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -166,8 +188,10 @@ class BalanceType10Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class BankTransactionCodeStructure6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: str = field(
@@ -188,32 +212,40 @@ class BankTransactionCodeStructure6(BaseModel):
             "max_length": 4,
         }
     )
+
+
 class Cscmanagement1Code(Enum):
-    PRST = 'PRST'
-    BYPS = 'BYPS'
-    UNRD = 'UNRD'
-    NCSC = 'NCSC'
+    PRST = "PRST"
+    BYPS = "BYPS"
+    UNRD = "UNRD"
+    NCSC = "NCSC"
+
+
 class CardDataReading1Code(Enum):
-    TAGC = 'TAGC'
-    PHYS = 'PHYS'
-    BRCD = 'BRCD'
-    MGST = 'MGST'
-    CICC = 'CICC'
-    DFLE = 'DFLE'
-    CTLS = 'CTLS'
-    ECTL = 'ECTL'
+    TAGC = "TAGC"
+    PHYS = "PHYS"
+    BRCD = "BRCD"
+    MGST = "MGST"
+    CICC = "CICC"
+    DFLE = "DFLE"
+    CTLS = "CTLS"
+    ECTL = "ECTL"
+
+
 class CardPaymentServiceType2Code(Enum):
-    AGGR = 'AGGR'
-    DCCV = 'DCCV'
-    GRTT = 'GRTT'
-    INSP = 'INSP'
-    LOYT = 'LOYT'
-    NRES = 'NRES'
-    PUCO = 'PUCO'
-    RECP = 'RECP'
-    SOAF = 'SOAF'
-    UNAF = 'UNAF'
-    VCAU = 'VCAU'
+    AGGR = "AGGR"
+    DCCV = "DCCV"
+    GRTT = "GRTT"
+    INSP = "INSP"
+    LOYT = "LOYT"
+    NRES = "NRES"
+    PUCO = "PUCO"
+    RECP = "RECP"
+    SOAF = "SOAF"
+    UNAF = "UNAF"
+    VCAU = "VCAU"
+
+
 class CardSequenceNumberRange1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     frst_tx: None | str = field(
@@ -224,7 +256,7 @@ class CardSequenceNumberRange1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     last_tx: None | str = field(
         default=None,
@@ -234,21 +266,25 @@ class CardSequenceNumberRange1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class CardholderVerificationCapability1Code(Enum):
-    MNSG = 'MNSG'
-    NPIN = 'NPIN'
-    FCPN = 'FCPN'
-    FEPN = 'FEPN'
-    FDSG = 'FDSG'
-    FBIO = 'FBIO'
-    MNVR = 'MNVR'
-    FBIG = 'FBIG'
-    APKI = 'APKI'
-    PKIS = 'PKIS'
-    CHDT = 'CHDT'
-    SCEC = 'SCEC'
+    MNSG = "MNSG"
+    NPIN = "NPIN"
+    FCPN = "FCPN"
+    FEPN = "FEPN"
+    FDSG = "FDSG"
+    FBIO = "FBIO"
+    MNVR = "MNVR"
+    FBIG = "FBIG"
+    APKI = "APKI"
+    PKIS = "PKIS"
+    CHDT = "CHDT"
+    SCEC = "SCEC"
+
+
 class CashAccountType2Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -259,7 +295,7 @@ class CashAccountType2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -269,8 +305,10 @@ class CashAccountType2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class CashAvailabilityDate1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nb_of_days: None | str = field(
@@ -279,8 +317,8 @@ class CashAvailabilityDate1Choice(BaseModel):
             "name": "NbOfDays",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[\+]{0,1}[0-9]{1,15}',
-        }
+            "pattern": r"[\+]{0,1}[0-9]{1,15}",
+        },
     )
     actl_dt: None | XmlDate = field(
         default=None,
@@ -288,13 +326,17 @@ class CashAvailabilityDate1Choice(BaseModel):
             "name": "ActlDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ChargeBearerType1Code(Enum):
-    DEBT = 'DEBT'
-    CRED = 'CRED'
-    SHAR = 'SHAR'
-    SLEV = 'SLEV'
+    DEBT = "DEBT"
+    CRED = "CRED"
+    SHAR = "SHAR"
+    SLEV = "SLEV"
+
+
 class ClearingSystemIdentification2Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -305,7 +347,7 @@ class ClearingSystemIdentification2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 5,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -315,12 +357,16 @@ class ClearingSystemIdentification2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class CopyDuplicate1Code(Enum):
-    CODU = 'CODU'
-    COPY = 'COPY'
-    DUPL = 'DUPL'
+    CODU = "CODU"
+    COPY = "COPY"
+    DUPL = "DUPL"
+
+
 class CorporateAction9(BaseModel):
     model_config = ConfigDict(defer_build=True)
     evt_tp: str = field(
@@ -341,9 +387,13 @@ class CorporateAction9(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class CreditDebitCode(Enum):
-    CRDT = 'CRDT'
-    DBIT = 'DBIT'
+    CRDT = "CRDT"
+    DBIT = "DBIT"
+
+
 class CreditLineType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -354,7 +404,7 @@ class CreditLineType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -364,8 +414,10 @@ class CreditLineType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class CurrencyExchange5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     src_ccy: str = field(
@@ -373,7 +425,7 @@ class CurrencyExchange5(BaseModel):
             "name": "SrcCcy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
+            "pattern": r"[A-Z]{3,3}",
         }
     )
     trgt_ccy: None | str = field(
@@ -382,8 +434,8 @@ class CurrencyExchange5(BaseModel):
             "name": "TrgtCcy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
-        }
+            "pattern": r"[A-Z]{3,3}",
+        },
     )
     unit_ccy: None | str = field(
         default=None,
@@ -391,8 +443,8 @@ class CurrencyExchange5(BaseModel):
             "name": "UnitCcy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
-        }
+            "pattern": r"[A-Z]{3,3}",
+        },
     )
     xchg_rate: Decimal = field(
         metadata={
@@ -411,7 +463,7 @@ class CurrencyExchange5(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     qtn_dt: None | XmlDateTime = field(
         default=None,
@@ -419,8 +471,10 @@ class CurrencyExchange5(BaseModel):
             "name": "QtnDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class DateAndDateTime2Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     dt: None | XmlDate = field(
@@ -429,7 +483,7 @@ class DateAndDateTime2Choice(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt_tm: None | XmlDateTime = field(
         default=None,
@@ -437,8 +491,10 @@ class DateAndDateTime2Choice(BaseModel):
             "name": "DtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class DateAndPlaceOfBirth1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     birth_dt: XmlDate = field(
@@ -456,7 +512,7 @@ class DateAndPlaceOfBirth1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     city_of_birth: str = field(
         metadata={
@@ -472,9 +528,11 @@ class DateAndPlaceOfBirth1(BaseModel):
             "name": "CtryOfBirth",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{2,2}',
+            "pattern": r"[A-Z]{2,2}",
         }
     )
+
+
 class DatePeriod2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_dt: XmlDate = field(
@@ -491,6 +549,8 @@ class DatePeriod2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class DateTimePeriod1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_dt_tm: XmlDateTime = field(
@@ -507,6 +567,8 @@ class DateTimePeriod1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class DiscountAmountType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -517,7 +579,7 @@ class DiscountAmountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -527,8 +589,10 @@ class DiscountAmountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class DocumentLineType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -539,7 +603,7 @@ class DocumentLineType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -549,32 +613,38 @@ class DocumentLineType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class DocumentType3Code(Enum):
-    RADM = 'RADM'
-    RPIN = 'RPIN'
-    FXDR = 'FXDR'
-    DISP = 'DISP'
-    PUOR = 'PUOR'
-    SCOR = 'SCOR'
+    RADM = "RADM"
+    RPIN = "RPIN"
+    FXDR = "FXDR"
+    DISP = "DISP"
+    PUOR = "PUOR"
+    SCOR = "SCOR"
+
+
 class DocumentType6Code(Enum):
-    MSIN = 'MSIN'
-    CNFA = 'CNFA'
-    DNFA = 'DNFA'
-    CINV = 'CINV'
-    CREN = 'CREN'
-    DEBN = 'DEBN'
-    HIRI = 'HIRI'
-    SBIN = 'SBIN'
-    CMCN = 'CMCN'
-    SOAC = 'SOAC'
-    DISP = 'DISP'
-    BOLD = 'BOLD'
-    VCHR = 'VCHR'
-    AROI = 'AROI'
-    TSUT = 'TSUT'
-    PUOR = 'PUOR'
+    MSIN = "MSIN"
+    CNFA = "CNFA"
+    DNFA = "DNFA"
+    CINV = "CINV"
+    CREN = "CREN"
+    DEBN = "DEBN"
+    HIRI = "HIRI"
+    SBIN = "SBIN"
+    CMCN = "CMCN"
+    SOAC = "SOAC"
+    DISP = "DISP"
+    BOLD = "BOLD"
+    VCHR = "VCHR"
+    AROI = "AROI"
+    TSUT = "TSUT"
+    PUOR = "PUOR"
+
+
 class EntryStatus1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -585,7 +655,7 @@ class EntryStatus1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -595,8 +665,10 @@ class EntryStatus1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class FinancialIdentificationSchemeName1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -607,7 +679,7 @@ class FinancialIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -617,8 +689,10 @@ class FinancialIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class FinancialInstrumentQuantity1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     unit: None | Decimal = field(
@@ -629,7 +703,7 @@ class FinancialInstrumentQuantity1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 17,
-        }
+        },
     )
     face_amt: None | Decimal = field(
         default=None,
@@ -637,10 +711,10 @@ class FinancialInstrumentQuantity1Choice(BaseModel):
             "name": "FaceAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
     amtsd_val: None | Decimal = field(
         default=None,
@@ -648,11 +722,13 @@ class FinancialInstrumentQuantity1Choice(BaseModel):
             "name": "AmtsdVal",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
+
+
 class GarnishmentType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -663,7 +739,7 @@ class GarnishmentType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -673,8 +749,10 @@ class GarnishmentType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -694,7 +772,7 @@ class GenericIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     issr: None | str = field(
         default=None,
@@ -704,8 +782,10 @@ class GenericIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericIdentification3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -725,8 +805,10 @@ class GenericIdentification3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericIdentification30(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -734,7 +816,7 @@ class GenericIdentification30(BaseModel):
             "name": "Id",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[a-zA-Z0-9]{4}',
+            "pattern": r"[a-zA-Z0-9]{4}",
         }
     )
     issr: str = field(
@@ -754,8 +836,10 @@ class GenericIdentification30(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class IdentificationSource3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -766,7 +850,7 @@ class IdentificationSource3Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -776,11 +860,15 @@ class IdentificationSource3Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class InterestType1Code(Enum):
-    INDY = 'INDY'
-    OVRN = 'OVRN'
+    INDY = "INDY"
+    OVRN = "OVRN"
+
+
 class LocalInstrument2Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -791,7 +879,7 @@ class LocalInstrument2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -801,8 +889,10 @@ class LocalInstrument2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class MessageIdentification2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     msg_nm_id: None | str = field(
@@ -813,7 +903,7 @@ class MessageIdentification2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     msg_id: None | str = field(
         default=None,
@@ -823,14 +913,18 @@ class MessageIdentification2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class NamePrefix2Code(Enum):
-    DOCT = 'DOCT'
-    MADM = 'MADM'
-    MISS = 'MISS'
-    MIST = 'MIST'
-    MIKS = 'MIKS'
+    DOCT = "DOCT"
+    MADM = "MADM"
+    MISS = "MISS"
+    MIST = "MIST"
+    MIKS = "MIKS"
+
+
 class NumberAndSumOfTransactions1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nb_of_ntries: None | str = field(
@@ -839,8 +933,8 @@ class NumberAndSumOfTransactions1(BaseModel):
             "name": "NbOfNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,15}',
-        }
+            "pattern": r"[0-9]{1,15}",
+        },
     )
     sum: None | Decimal = field(
         default=None,
@@ -850,12 +944,16 @@ class NumberAndSumOfTransactions1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 17,
-        }
+        },
     )
+
+
 class OnLineCapability1Code(Enum):
-    OFLN = 'OFLN'
-    ONLN = 'ONLN'
-    SMON = 'SMON'
+    OFLN = "OFLN"
+    ONLN = "ONLN"
+    SMON = "SMON"
+
+
 class OrganisationIdentificationSchemeName1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -866,7 +964,7 @@ class OrganisationIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -876,8 +974,10 @@ class OrganisationIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class OriginalAndCurrentQuantities1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     face_amt: Decimal = field(
@@ -885,7 +985,7 @@ class OriginalAndCurrentQuantities1(BaseModel):
             "name": "FaceAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
         }
@@ -895,11 +995,13 @@ class OriginalAndCurrentQuantities1(BaseModel):
             "name": "AmtsdVal",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
         }
     )
+
+
 class OriginalBusinessQuery1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     msg_id: str = field(
@@ -919,7 +1021,7 @@ class OriginalBusinessQuery1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     cre_dt_tm: None | XmlDateTime = field(
         default=None,
@@ -927,8 +1029,10 @@ class OriginalBusinessQuery1(BaseModel):
             "name": "CreDtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class OtherContact1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     chanl_tp: str = field(
@@ -948,16 +1052,20 @@ class OtherContact1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 128,
-        }
+        },
     )
+
+
 class PoicomponentType1Code(Enum):
-    SOFT = 'SOFT'
-    EMVK = 'EMVK'
-    EMVO = 'EMVO'
-    MRIT = 'MRIT'
-    CHIT = 'CHIT'
-    SECM = 'SECM'
-    PEDV = 'PEDV'
+    SOFT = "SOFT"
+    EMVK = "EMVK"
+    EMVO = "EMVO"
+    MRIT = "MRIT"
+    CHIT = "CHIT"
+    SECM = "SECM"
+    PEDV = "PEDV"
+
+
 class Pagination1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     pg_nb: str = field(
@@ -965,7 +1073,7 @@ class Pagination1(BaseModel):
             "name": "PgNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,5}',
+            "pattern": r"[0-9]{1,5}",
         }
     )
     last_pg_ind: bool = field(
@@ -975,21 +1083,27 @@ class Pagination1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class PartyType3Code(Enum):
-    OPOI = 'OPOI'
-    MERC = 'MERC'
-    ACCP = 'ACCP'
-    ITAG = 'ITAG'
-    ACQR = 'ACQR'
-    CISS = 'CISS'
-    DLIS = 'DLIS'
+    OPOI = "OPOI"
+    MERC = "MERC"
+    ACCP = "ACCP"
+    ITAG = "ITAG"
+    ACQR = "ACQR"
+    CISS = "CISS"
+    DLIS = "DLIS"
+
+
 class PartyType4Code(Enum):
-    MERC = 'MERC'
-    ACCP = 'ACCP'
-    ITAG = 'ITAG'
-    ACQR = 'ACQR'
-    CISS = 'CISS'
-    TAXH = 'TAXH'
+    MERC = "MERC"
+    ACCP = "ACCP"
+    ITAG = "ITAG"
+    ACQR = "ACQR"
+    CISS = "CISS"
+    TAXH = "TAXH"
+
+
 class PersonIdentificationSchemeName1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1000,7 +1114,7 @@ class PersonIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1010,18 +1124,24 @@ class PersonIdentificationSchemeName1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class PreferredContactMethod1Code(Enum):
-    LETT = 'LETT'
-    MAIL = 'MAIL'
-    PHON = 'PHON'
-    FAXX = 'FAXX'
-    CELL = 'CELL'
+    LETT = "LETT"
+    MAIL = "MAIL"
+    PHON = "PHON"
+    FAXX = "FAXX"
+    CELL = "CELL"
+
+
 class PriceValueType1Code(Enum):
-    DISC = 'DISC'
-    PREM = 'PREM'
-    PARV = 'PARV'
+    DISC = "DISC"
+    PREM = "PREM"
+    PARV = "PARV"
+
+
 class ProprietaryBankTransactionCodeStructure1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: str = field(
@@ -1041,8 +1161,10 @@ class ProprietaryBankTransactionCodeStructure1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class ProprietaryQuantity1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -1063,6 +1185,8 @@ class ProprietaryQuantity1(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class ProprietaryReference1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -1083,6 +1207,8 @@ class ProprietaryReference1(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class ProxyAccountType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1093,7 +1219,7 @@ class ProxyAccountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1103,8 +1229,10 @@ class ProxyAccountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class Purpose2Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1115,7 +1243,7 @@ class Purpose2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1125,8 +1253,10 @@ class Purpose2Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class RateType4Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     pctg: None | Decimal = field(
@@ -1137,7 +1267,7 @@ class RateType4Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 11,
             "fraction_digits": 10,
-        }
+        },
     )
     othr: None | str = field(
         default=None,
@@ -1147,15 +1277,19 @@ class RateType4Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class RemittanceLocationMethod2Code(Enum):
-    FAXI = 'FAXI'
-    EDIC = 'EDIC'
-    URID = 'URID'
-    EMAL = 'EMAL'
-    POST = 'POST'
-    SMSM = 'SMSM'
+    FAXI = "FAXI"
+    EDIC = "EDIC"
+    URID = "URID"
+    EMAL = "EMAL"
+    POST = "POST"
+    SMSM = "SMSM"
+
+
 class ReportingSource1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1166,7 +1300,7 @@ class ReportingSource1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1176,8 +1310,10 @@ class ReportingSource1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class ReturnReason5Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1188,7 +1324,7 @@ class ReturnReason5Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1198,8 +1334,10 @@ class ReturnReason5Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class SequenceRange1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_seq: str = field(
@@ -1220,6 +1358,8 @@ class SequenceRange1(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class SupplementaryDataEnvelope1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     any_element: None | object = field(
@@ -1227,8 +1367,10 @@ class SupplementaryDataEnvelope1(BaseModel):
         metadata={
             "type": "Wildcard",
             "namespace": "##any",
-        }
+        },
     )
+
+
 class TaxAmountType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1239,7 +1381,7 @@ class TaxAmountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1249,8 +1391,10 @@ class TaxAmountType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class TaxAuthorisation1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     titl: None | str = field(
@@ -1261,7 +1405,7 @@ class TaxAuthorisation1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     nm: None | str = field(
         default=None,
@@ -1271,8 +1415,10 @@ class TaxAuthorisation1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
+
+
 class TaxParty1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tax_id: None | str = field(
@@ -1283,7 +1429,7 @@ class TaxParty1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     regn_id: None | str = field(
         default=None,
@@ -1293,7 +1439,7 @@ class TaxParty1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     tax_tp: None | str = field(
         default=None,
@@ -1303,27 +1449,31 @@ class TaxParty1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class TaxRecordPeriod1Code(Enum):
-    MM01 = 'MM01'
-    MM02 = 'MM02'
-    MM03 = 'MM03'
-    MM04 = 'MM04'
-    MM05 = 'MM05'
-    MM06 = 'MM06'
-    MM07 = 'MM07'
-    MM08 = 'MM08'
-    MM09 = 'MM09'
-    MM10 = 'MM10'
-    MM11 = 'MM11'
-    MM12 = 'MM12'
-    QTR1 = 'QTR1'
-    QTR2 = 'QTR2'
-    QTR3 = 'QTR3'
-    QTR4 = 'QTR4'
-    HLF1 = 'HLF1'
-    HLF2 = 'HLF2'
+    MM01 = "MM01"
+    MM02 = "MM02"
+    MM03 = "MM03"
+    MM04 = "MM04"
+    MM05 = "MM05"
+    MM06 = "MM06"
+    MM07 = "MM07"
+    MM08 = "MM08"
+    MM09 = "MM09"
+    MM10 = "MM10"
+    MM11 = "MM11"
+    MM12 = "MM12"
+    QTR1 = "QTR1"
+    QTR2 = "QTR2"
+    QTR3 = "QTR3"
+    QTR4 = "QTR4"
+    HLF1 = "HLF1"
+    HLF2 = "HLF2"
+
+
 class TechnicalInputChannel1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1334,7 +1484,7 @@ class TechnicalInputChannel1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1344,8 +1494,10 @@ class TechnicalInputChannel1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class TrackData1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     trck_nb: None | str = field(
@@ -1354,8 +1506,8 @@ class TrackData1(BaseModel):
             "name": "TrckNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]',
-        }
+            "pattern": r"[0-9]",
+        },
     )
     trck_val: str = field(
         metadata={
@@ -1366,15 +1518,21 @@ class TrackData1(BaseModel):
             "max_length": 140,
         }
     )
+
+
 class TransactionChannel1Code(Enum):
-    MAIL = 'MAIL'
-    TLPH = 'TLPH'
-    ECOM = 'ECOM'
-    TVPY = 'TVPY'
+    MAIL = "MAIL"
+    TLPH = "TLPH"
+    ECOM = "ECOM"
+    TVPY = "TVPY"
+
+
 class TransactionEnvironment1Code(Enum):
-    MERC = 'MERC'
-    PRIV = 'PRIV'
-    PUBL = 'PUBL'
+    MERC = "MERC"
+    PRIV = "PRIV"
+    PUBL = "PUBL"
+
+
 class TransactionIdentifier1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tx_dt_tm: XmlDateTime = field(
@@ -1393,45 +1551,51 @@ class TransactionIdentifier1(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class UnitOfMeasure1Code(Enum):
-    PIEC = 'PIEC'
-    TONS = 'TONS'
-    FOOT = 'FOOT'
-    GBGA = 'GBGA'
-    USGA = 'USGA'
-    GRAM = 'GRAM'
-    INCH = 'INCH'
-    KILO = 'KILO'
-    PUND = 'PUND'
-    METR = 'METR'
-    CMET = 'CMET'
-    MMET = 'MMET'
-    LITR = 'LITR'
-    CELI = 'CELI'
-    MILI = 'MILI'
-    GBOU = 'GBOU'
-    USOU = 'USOU'
-    GBQA = 'GBQA'
-    USQA = 'USQA'
-    GBPI = 'GBPI'
-    USPI = 'USPI'
-    MILE = 'MILE'
-    KMET = 'KMET'
-    YARD = 'YARD'
-    SQKI = 'SQKI'
-    HECT = 'HECT'
-    ARES = 'ARES'
-    SMET = 'SMET'
-    SCMT = 'SCMT'
-    SMIL = 'SMIL'
-    SQMI = 'SQMI'
-    SQYA = 'SQYA'
-    SQFO = 'SQFO'
-    SQIN = 'SQIN'
-    ACRE = 'ACRE'
+    PIEC = "PIEC"
+    TONS = "TONS"
+    FOOT = "FOOT"
+    GBGA = "GBGA"
+    USGA = "USGA"
+    GRAM = "GRAM"
+    INCH = "INCH"
+    KILO = "KILO"
+    PUND = "PUND"
+    METR = "METR"
+    CMET = "CMET"
+    MMET = "MMET"
+    LITR = "LITR"
+    CELI = "CELI"
+    MILI = "MILI"
+    GBOU = "GBOU"
+    USOU = "USOU"
+    GBQA = "GBQA"
+    USQA = "USQA"
+    GBPI = "GBPI"
+    USPI = "USPI"
+    MILE = "MILE"
+    KMET = "KMET"
+    YARD = "YARD"
+    SQKI = "SQKI"
+    HECT = "HECT"
+    ARES = "ARES"
+    SMET = "SMET"
+    SCMT = "SCMT"
+    SMIL = "SMIL"
+    SQMI = "SQMI"
+    SQYA = "SQYA"
+    SQFO = "SQFO"
+    SQIN = "SQIN"
+    ACRE = "ACRE"
+
+
 class UserInterface2Code(Enum):
-    MDSP = 'MDSP'
-    CDSP = 'CDSP'
+    MDSP = "MDSP"
+    CDSP = "CDSP"
+
+
 class AddressType3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | AddressType2Code = field(
@@ -1440,7 +1604,7 @@ class AddressType3Choice(BaseModel):
             "name": "Cd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | GenericIdentification30 = field(
         default=None,
@@ -1448,8 +1612,10 @@ class AddressType3Choice(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AmountAndCurrencyExchangeDetails3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: ActiveOrHistoricCurrencyAndAmount = field(
@@ -1465,8 +1631,10 @@ class AmountAndCurrencyExchangeDetails3(BaseModel):
             "name": "CcyXchg",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AmountAndCurrencyExchangeDetails4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -1491,8 +1659,10 @@ class AmountAndCurrencyExchangeDetails4(BaseModel):
             "name": "CcyXchg",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AmountAndDirection35(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: Decimal = field(
@@ -1500,7 +1670,7 @@ class AmountAndDirection35(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 17,
         }
@@ -1512,6 +1682,8 @@ class AmountAndDirection35(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class BalanceType13(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd_or_prtry: BalanceType10Choice = field(
@@ -1527,8 +1699,10 @@ class BalanceType13(BaseModel):
             "name": "SubTp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class BankTransactionCodeStructure5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: str = field(
@@ -1547,6 +1721,8 @@ class BankTransactionCodeStructure5(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class BatchInformation2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     msg_id: None | str = field(
@@ -1557,7 +1733,7 @@ class BatchInformation2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     pmt_inf_id: None | str = field(
         default=None,
@@ -1567,7 +1743,7 @@ class BatchInformation2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     nb_of_txs: None | str = field(
         default=None,
@@ -1575,8 +1751,8 @@ class BatchInformation2(BaseModel):
             "name": "NbOfTxs",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,15}',
-        }
+            "pattern": r"[0-9]{1,15}",
+        },
     )
     ttl_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -1584,7 +1760,7 @@ class BatchInformation2(BaseModel):
             "name": "TtlAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdt_dbt_ind: None | CreditDebitCode = field(
         default=None,
@@ -1592,8 +1768,10 @@ class BatchInformation2(BaseModel):
             "name": "CdtDbtInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardSecurityInformation1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cscmgmt: Cscmanagement1Code = field(
@@ -1609,9 +1787,11 @@ class CardSecurityInformation1(BaseModel):
             "name": "CSCVal",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{3,4}',
-        }
+            "pattern": r"[0-9]{3,4}",
+        },
     )
+
+
 class CardholderAuthentication2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     authntcn_mtd: AuthenticationMethod1Code = field(
@@ -1628,6 +1808,8 @@ class CardholderAuthentication2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class CashAvailability1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     dt: CashAvailabilityDate1Choice = field(
@@ -1651,6 +1833,8 @@ class CashAvailability1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class CashDeposit1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     note_dnmtn: ActiveCurrencyAndAmount = field(
@@ -1665,7 +1849,7 @@ class CashDeposit1(BaseModel):
             "name": "NbOfNotes",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,15}',
+            "pattern": r"[0-9]{1,15}",
         }
     )
     amt: ActiveCurrencyAndAmount = field(
@@ -1675,6 +1859,8 @@ class CashDeposit1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class ChargeType3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | str = field(
@@ -1685,7 +1871,7 @@ class ChargeType3Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     prtry: None | GenericIdentification3 = field(
         default=None,
@@ -1693,8 +1879,10 @@ class ChargeType3Choice(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ClearingSystemMemberIdentification2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     clr_sys_id: None | ClearingSystemIdentification2Choice = field(
@@ -1703,7 +1891,7 @@ class ClearingSystemMemberIdentification2(BaseModel):
             "name": "ClrSysId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     mmb_id: str = field(
         metadata={
@@ -1714,6 +1902,8 @@ class ClearingSystemMemberIdentification2(BaseModel):
             "max_length": 35,
         }
     )
+
+
 class Contact4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nm_prfx: None | NamePrefix2Code = field(
@@ -1722,7 +1912,7 @@ class Contact4(BaseModel):
             "name": "NmPrfx",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     nm: None | str = field(
         default=None,
@@ -1732,7 +1922,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     phne_nb: None | str = field(
         default=None,
@@ -1740,8 +1930,8 @@ class Contact4(BaseModel):
             "name": "PhneNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'\+[0-9]{1,3}-[0-9()+\-]{1,30}',
-        }
+            "pattern": r"\+[0-9]{1,3}-[0-9()+\-]{1,30}",
+        },
     )
     mob_nb: None | str = field(
         default=None,
@@ -1749,8 +1939,8 @@ class Contact4(BaseModel):
             "name": "MobNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'\+[0-9]{1,3}-[0-9()+\-]{1,30}',
-        }
+            "pattern": r"\+[0-9]{1,3}-[0-9()+\-]{1,30}",
+        },
     )
     fax_nb: None | str = field(
         default=None,
@@ -1758,8 +1948,8 @@ class Contact4(BaseModel):
             "name": "FaxNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'\+[0-9]{1,3}-[0-9()+\-]{1,30}',
-        }
+            "pattern": r"\+[0-9]{1,3}-[0-9()+\-]{1,30}",
+        },
     )
     email_adr: None | str = field(
         default=None,
@@ -1769,7 +1959,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 2048,
-        }
+        },
     )
     email_purp: None | str = field(
         default=None,
@@ -1779,7 +1969,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     job_titl: None | str = field(
         default=None,
@@ -1789,7 +1979,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     rspnsblty: None | str = field(
         default=None,
@@ -1799,7 +1989,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     dept: None | str = field(
         default=None,
@@ -1809,7 +1999,7 @@ class Contact4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     othr: list[OtherContact1] = field(
         default_factory=list,
@@ -1817,7 +2007,7 @@ class Contact4(BaseModel):
             "name": "Othr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prefrd_mtd: None | PreferredContactMethod1Code = field(
         default=None,
@@ -1825,8 +2015,10 @@ class Contact4(BaseModel):
             "name": "PrefrdMtd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CreditLine3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     incl: bool = field(
@@ -1842,7 +2034,7 @@ class CreditLine3(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -1850,7 +2042,7 @@ class CreditLine3(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt: None | DateAndDateTime2Choice = field(
         default=None,
@@ -1858,8 +2050,10 @@ class CreditLine3(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CreditorReferenceType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | DocumentType3Code = field(
@@ -1868,7 +2062,7 @@ class CreditorReferenceType1Choice(BaseModel):
             "name": "Cd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -1878,8 +2072,10 @@ class CreditorReferenceType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class DateOrDateTimePeriod1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     dt: None | DatePeriod2 = field(
@@ -1888,7 +2084,7 @@ class DateOrDateTimePeriod1Choice(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt_tm: None | DateTimePeriod1 = field(
         default=None,
@@ -1896,8 +2092,10 @@ class DateOrDateTimePeriod1Choice(BaseModel):
             "name": "DtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class DiscountAmountAndType1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | DiscountAmountType1Choice = field(
@@ -1906,7 +2104,7 @@ class DiscountAmountAndType1(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: ActiveOrHistoricCurrencyAndAmount = field(
         metadata={
@@ -1915,6 +2113,8 @@ class DiscountAmountAndType1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class DisplayCapabilities1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     disp_tp: UserInterface2Code = field(
@@ -1929,7 +2129,7 @@ class DisplayCapabilities1(BaseModel):
             "name": "NbOfLines",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,3}',
+            "pattern": r"[0-9]{1,3}",
         }
     )
     line_width: str = field(
@@ -1937,9 +2137,11 @@ class DisplayCapabilities1(BaseModel):
             "name": "LineWidth",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,3}',
+            "pattern": r"[0-9]{1,3}",
         }
     )
+
+
 class DocumentAdjustment1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: ActiveOrHistoricCurrencyAndAmount = field(
@@ -1955,7 +2157,7 @@ class DocumentAdjustment1(BaseModel):
             "name": "CdtDbtInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rsn: None | str = field(
         default=None,
@@ -1965,7 +2167,7 @@ class DocumentAdjustment1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     addtl_inf: None | str = field(
         default=None,
@@ -1975,8 +2177,10 @@ class DocumentAdjustment1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
+
+
 class DocumentLineType1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd_or_prtry: DocumentLineType1Choice = field(
@@ -1994,8 +2198,10 @@ class DocumentLineType1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class FromToAmountRange1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_amt: AmountRangeBoundary1 = field(
@@ -2012,6 +2218,8 @@ class FromToAmountRange1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class GarnishmentType1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd_or_prtry: GarnishmentType1Choice = field(
@@ -2029,8 +2237,10 @@ class GarnishmentType1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericAccountIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2048,7 +2258,7 @@ class GenericAccountIdentification1(BaseModel):
             "name": "SchmeNm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issr: None | str = field(
         default=None,
@@ -2058,8 +2268,10 @@ class GenericAccountIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericFinancialIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2077,7 +2289,7 @@ class GenericFinancialIdentification1(BaseModel):
             "name": "SchmeNm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issr: None | str = field(
         default=None,
@@ -2087,8 +2299,10 @@ class GenericFinancialIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericIdentification32(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2106,7 +2320,7 @@ class GenericIdentification32(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issr: None | PartyType4Code = field(
         default=None,
@@ -2114,7 +2328,7 @@ class GenericIdentification32(BaseModel):
             "name": "Issr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     shrt_nm: None | str = field(
         default=None,
@@ -2124,8 +2338,10 @@ class GenericIdentification32(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericOrganisationIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2143,7 +2359,7 @@ class GenericOrganisationIdentification1(BaseModel):
             "name": "SchmeNm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issr: None | str = field(
         default=None,
@@ -2153,8 +2369,10 @@ class GenericOrganisationIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class GenericPersonIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2172,7 +2390,7 @@ class GenericPersonIdentification1(BaseModel):
             "name": "SchmeNm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issr: None | str = field(
         default=None,
@@ -2182,8 +2400,10 @@ class GenericPersonIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class InterestType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | InterestType1Code = field(
@@ -2192,7 +2412,7 @@ class InterestType1Choice(BaseModel):
             "name": "Cd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -2202,8 +2422,10 @@ class InterestType1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class OtherIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2223,7 +2445,7 @@ class OtherIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 16,
-        }
+        },
     )
     tp: IdentificationSource3Choice = field(
         metadata={
@@ -2232,6 +2454,8 @@ class OtherIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class PointOfInteractionComponent1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     poicmpnt_tp: PoicomponentType1Code = field(
@@ -2249,7 +2473,7 @@ class PointOfInteractionComponent1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     mdl: None | str = field(
         default=None,
@@ -2259,7 +2483,7 @@ class PointOfInteractionComponent1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     vrsn_nb: None | str = field(
         default=None,
@@ -2269,7 +2493,7 @@ class PointOfInteractionComponent1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 16,
-        }
+        },
     )
     srl_nb: None | str = field(
         default=None,
@@ -2279,7 +2503,7 @@ class PointOfInteractionComponent1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     apprvl_nb: list[str] = field(
         default_factory=list,
@@ -2289,8 +2513,10 @@ class PointOfInteractionComponent1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
+
+
 class PriceRateOrAmount3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     rate: None | Decimal = field(
@@ -2301,7 +2527,7 @@ class PriceRateOrAmount3Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 11,
             "fraction_digits": 10,
-        }
+        },
     )
     amt: None | ActiveOrHistoricCurrencyAnd13DecimalAmount = field(
         default=None,
@@ -2309,8 +2535,10 @@ class PriceRateOrAmount3Choice(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Product2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     pdct_cd: str = field(
@@ -2328,7 +2556,7 @@ class Product2(BaseModel):
             "name": "UnitOfMeasr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     pdct_qty: None | Decimal = field(
         default=None,
@@ -2338,7 +2566,7 @@ class Product2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 17,
-        }
+        },
     )
     unit_pric: None | Decimal = field(
         default=None,
@@ -2346,10 +2574,10 @@ class Product2(BaseModel):
             "name": "UnitPric",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
     pdct_amt: None | Decimal = field(
         default=None,
@@ -2357,10 +2585,10 @@ class Product2(BaseModel):
             "name": "PdctAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
     tax_tp: None | str = field(
         default=None,
@@ -2370,7 +2598,7 @@ class Product2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     addtl_pdct_inf: None | str = field(
         default=None,
@@ -2380,8 +2608,10 @@ class Product2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class ProprietaryDate3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -2400,6 +2630,8 @@ class ProprietaryDate3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class ProprietaryPrice2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -2418,6 +2650,8 @@ class ProprietaryPrice2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class ProxyAccountIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | ProxyAccountType1Choice = field(
@@ -2426,7 +2660,7 @@ class ProxyAccountIdentification1(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     id: str = field(
         metadata={
@@ -2437,6 +2671,8 @@ class ProxyAccountIdentification1(BaseModel):
             "max_length": 2048,
         }
     )
+
+
 class ReferredDocumentType3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd: None | DocumentType6Code = field(
@@ -2445,7 +2681,7 @@ class ReferredDocumentType3Choice(BaseModel):
             "name": "Cd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | str = field(
         default=None,
@@ -2455,8 +2691,10 @@ class ReferredDocumentType3Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class SecuritiesAccount19(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -2474,7 +2712,7 @@ class SecuritiesAccount19(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     nm: None | str = field(
         default=None,
@@ -2484,8 +2722,10 @@ class SecuritiesAccount19(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
+
+
 class SequenceRange1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_seq: None | str = field(
@@ -2496,7 +2736,7 @@ class SequenceRange1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     to_seq: None | str = field(
         default=None,
@@ -2506,7 +2746,7 @@ class SequenceRange1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     fr_to_seq: list[SequenceRange1] = field(
         default_factory=list,
@@ -2514,7 +2754,7 @@ class SequenceRange1Choice(BaseModel):
             "name": "FrToSeq",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     eqseq: list[str] = field(
         default_factory=list,
@@ -2524,7 +2764,7 @@ class SequenceRange1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     neqseq: list[str] = field(
         default_factory=list,
@@ -2534,8 +2774,10 @@ class SequenceRange1Choice(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class SupplementaryData1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     plc_and_nm: None | str = field(
@@ -2546,7 +2788,7 @@ class SupplementaryData1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 350,
-        }
+        },
     )
     envlp: SupplementaryDataEnvelope1 = field(
         metadata={
@@ -2555,6 +2797,8 @@ class SupplementaryData1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class TaxAmountAndType1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | TaxAmountType1Choice = field(
@@ -2563,7 +2807,7 @@ class TaxAmountAndType1(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: ActiveOrHistoricCurrencyAndAmount = field(
         metadata={
@@ -2572,6 +2816,8 @@ class TaxAmountAndType1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class TaxCharges2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: None | str = field(
@@ -2582,7 +2828,7 @@ class TaxCharges2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     rate: None | Decimal = field(
         default=None,
@@ -2592,7 +2838,7 @@ class TaxCharges2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 11,
             "fraction_digits": 10,
-        }
+        },
     )
     amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -2600,8 +2846,10 @@ class TaxCharges2(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxParty2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tax_id: None | str = field(
@@ -2612,7 +2860,7 @@ class TaxParty2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     regn_id: None | str = field(
         default=None,
@@ -2622,7 +2870,7 @@ class TaxParty2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     tax_tp: None | str = field(
         default=None,
@@ -2632,7 +2880,7 @@ class TaxParty2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     authstn: None | TaxAuthorisation1 = field(
         default=None,
@@ -2640,8 +2888,10 @@ class TaxParty2(BaseModel):
             "name": "Authstn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxPeriod2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     yr: None | XmlDate = field(
@@ -2650,7 +2900,7 @@ class TaxPeriod2(BaseModel):
             "name": "Yr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tp: None | TaxRecordPeriod1Code = field(
         default=None,
@@ -2658,7 +2908,7 @@ class TaxPeriod2(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fr_to_dt: None | DatePeriod2 = field(
         default=None,
@@ -2666,8 +2916,10 @@ class TaxPeriod2(BaseModel):
             "name": "FrToDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TransactionQuantities3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     qty: None | FinancialInstrumentQuantity1Choice = field(
@@ -2676,7 +2928,7 @@ class TransactionQuantities3Choice(BaseModel):
             "name": "Qty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     orgnl_and_cur_face_amt: None | OriginalAndCurrentQuantities1 = field(
         default=None,
@@ -2684,7 +2936,7 @@ class TransactionQuantities3Choice(BaseModel):
             "name": "OrgnlAndCurFaceAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | ProprietaryQuantity1 = field(
         default=None,
@@ -2692,8 +2944,10 @@ class TransactionQuantities3Choice(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TransactionReferences6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     msg_id: None | str = field(
@@ -2704,7 +2958,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     acct_svcr_ref: None | str = field(
         default=None,
@@ -2714,7 +2968,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     pmt_inf_id: None | str = field(
         default=None,
@@ -2724,7 +2978,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     instr_id: None | str = field(
         default=None,
@@ -2734,7 +2988,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     end_to_end_id: None | str = field(
         default=None,
@@ -2744,7 +2998,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     uetr: None | str = field(
         default=None,
@@ -2752,8 +3006,8 @@ class TransactionReferences6(BaseModel):
             "name": "UETR",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}',
-        }
+            "pattern": r"[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}",
+        },
     )
     tx_id: None | str = field(
         default=None,
@@ -2763,7 +3017,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     mndt_id: None | str = field(
         default=None,
@@ -2773,7 +3027,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     chq_nb: None | str = field(
         default=None,
@@ -2783,7 +3037,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     clr_sys_ref: None | str = field(
         default=None,
@@ -2793,7 +3047,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     acct_ownr_tx_id: None | str = field(
         default=None,
@@ -2803,7 +3057,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     acct_svcr_tx_id: None | str = field(
         default=None,
@@ -2813,7 +3067,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     mkt_infrstrctr_tx_id: None | str = field(
         default=None,
@@ -2823,7 +3077,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     prcg_id: None | str = field(
         default=None,
@@ -2833,7 +3087,7 @@ class TransactionReferences6(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     prtry: list[ProprietaryReference1] = field(
         default_factory=list,
@@ -2841,8 +3095,10 @@ class TransactionReferences6(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class YieldedOrValueType1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     yldd: None | bool = field(
@@ -2851,7 +3107,7 @@ class YieldedOrValueType1Choice(BaseModel):
             "name": "Yldd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     val_tp: None | PriceValueType1Code = field(
         default=None,
@@ -2859,8 +3115,10 @@ class YieldedOrValueType1Choice(BaseModel):
             "name": "ValTp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AccountIdentification4Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     iban: None | str = field(
@@ -2869,8 +3127,8 @@ class AccountIdentification4Choice(BaseModel):
             "name": "IBAN",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}',
-        }
+            "pattern": r"[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}",
+        },
     )
     othr: None | GenericAccountIdentification1 = field(
         default=None,
@@ -2878,8 +3136,10 @@ class AccountIdentification4Choice(BaseModel):
             "name": "Othr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AmountAndCurrencyExchange3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     instd_amt: None | AmountAndCurrencyExchangeDetails3 = field(
@@ -2888,7 +3148,7 @@ class AmountAndCurrencyExchange3(BaseModel):
             "name": "InstdAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_amt: None | AmountAndCurrencyExchangeDetails3 = field(
         default=None,
@@ -2896,7 +3156,7 @@ class AmountAndCurrencyExchange3(BaseModel):
             "name": "TxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cntr_val_amt: None | AmountAndCurrencyExchangeDetails3 = field(
         default=None,
@@ -2904,7 +3164,7 @@ class AmountAndCurrencyExchange3(BaseModel):
             "name": "CntrValAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     anncd_pstng_amt: None | AmountAndCurrencyExchangeDetails3 = field(
         default=None,
@@ -2912,7 +3172,7 @@ class AmountAndCurrencyExchange3(BaseModel):
             "name": "AnncdPstngAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry_amt: list[AmountAndCurrencyExchangeDetails4] = field(
         default_factory=list,
@@ -2920,8 +3180,10 @@ class AmountAndCurrencyExchange3(BaseModel):
             "name": "PrtryAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class BankTransactionCodeStructure4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     domn: None | BankTransactionCodeStructure5 = field(
@@ -2930,7 +3192,7 @@ class BankTransactionCodeStructure4(BaseModel):
             "name": "Domn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: None | ProprietaryBankTransactionCodeStructure1 = field(
         default=None,
@@ -2938,8 +3200,10 @@ class BankTransactionCodeStructure4(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardAggregated2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     addtl_svc: None | CardPaymentServiceType2Code = field(
@@ -2948,7 +3212,7 @@ class CardAggregated2(BaseModel):
             "name": "AddtlSvc",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_ctgy: None | str = field(
         default=None,
@@ -2958,7 +3222,7 @@ class CardAggregated2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     sale_rcncltn_id: None | str = field(
         default=None,
@@ -2968,7 +3232,7 @@ class CardAggregated2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     seq_nb_rg: None | CardSequenceNumberRange1 = field(
         default=None,
@@ -2976,7 +3240,7 @@ class CardAggregated2(BaseModel):
             "name": "SeqNbRg",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_dt_rg: None | DateOrDateTimePeriod1Choice = field(
         default=None,
@@ -2984,8 +3248,10 @@ class CardAggregated2(BaseModel):
             "name": "TxDtRg",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CashBalance8(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: BalanceType13 = field(
@@ -3001,7 +3267,7 @@ class CashBalance8(BaseModel):
             "name": "CdtLine",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: ActiveOrHistoricCurrencyAndAmount = field(
         metadata={
@@ -3030,8 +3296,10 @@ class CashBalance8(BaseModel):
             "name": "Avlbty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CreditorReferenceType2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd_or_prtry: CreditorReferenceType1Choice = field(
@@ -3049,8 +3317,10 @@ class CreditorReferenceType2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class DocumentLineIdentification1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | DocumentLineType1 = field(
@@ -3059,7 +3329,7 @@ class DocumentLineIdentification1(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     nb: None | str = field(
         default=None,
@@ -3069,7 +3339,7 @@ class DocumentLineIdentification1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     rltd_dt: None | XmlDate = field(
         default=None,
@@ -3077,8 +3347,10 @@ class DocumentLineIdentification1(BaseModel):
             "name": "RltdDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ImpliedCurrencyAmountRange1Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fr_amt: None | AmountRangeBoundary1 = field(
@@ -3087,7 +3359,7 @@ class ImpliedCurrencyAmountRange1Choice(BaseModel):
             "name": "FrAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     to_amt: None | AmountRangeBoundary1 = field(
         default=None,
@@ -3095,7 +3367,7 @@ class ImpliedCurrencyAmountRange1Choice(BaseModel):
             "name": "ToAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fr_to_amt: None | FromToAmountRange1 = field(
         default=None,
@@ -3103,7 +3375,7 @@ class ImpliedCurrencyAmountRange1Choice(BaseModel):
             "name": "FrToAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     eqamt: None | Decimal = field(
         default=None,
@@ -3111,10 +3383,10 @@ class ImpliedCurrencyAmountRange1Choice(BaseModel):
             "name": "EQAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
     neqamt: None | Decimal = field(
         default=None,
@@ -3122,11 +3394,13 @@ class ImpliedCurrencyAmountRange1Choice(BaseModel):
             "name": "NEQAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "min_inclusive": Decimal('0'),
+            "min_inclusive": Decimal("0"),
             "total_digits": 18,
             "fraction_digits": 5,
-        }
+        },
     )
+
+
 class NumberAndSumOfTransactions4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nb_of_ntries: None | str = field(
@@ -3135,8 +3409,8 @@ class NumberAndSumOfTransactions4(BaseModel):
             "name": "NbOfNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,15}',
-        }
+            "pattern": r"[0-9]{1,15}",
+        },
     )
     sum: None | Decimal = field(
         default=None,
@@ -3146,7 +3420,7 @@ class NumberAndSumOfTransactions4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 17,
-        }
+        },
     )
     ttl_net_ntry: None | AmountAndDirection35 = field(
         default=None,
@@ -3154,8 +3428,10 @@ class NumberAndSumOfTransactions4(BaseModel):
             "name": "TtlNetNtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class OrganisationIdentification29(BaseModel):
     model_config = ConfigDict(defer_build=True)
     any_bic: None | str = field(
@@ -3164,8 +3440,8 @@ class OrganisationIdentification29(BaseModel):
             "name": "AnyBIC",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}',
-        }
+            "pattern": r"[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}",
+        },
     )
     lei: None | str = field(
         default=None,
@@ -3173,8 +3449,8 @@ class OrganisationIdentification29(BaseModel):
             "name": "LEI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z0-9]{18,18}[0-9]{2,2}',
-        }
+            "pattern": r"[A-Z0-9]{18,18}[0-9]{2,2}",
+        },
     )
     othr: list[GenericOrganisationIdentification1] = field(
         default_factory=list,
@@ -3182,8 +3458,10 @@ class OrganisationIdentification29(BaseModel):
             "name": "Othr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PaymentContext3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     card_pres: None | bool = field(
@@ -3192,7 +3470,7 @@ class PaymentContext3(BaseModel):
             "name": "CardPres",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     crdhldr_pres: None | bool = field(
         default=None,
@@ -3200,7 +3478,7 @@ class PaymentContext3(BaseModel):
             "name": "CrdhldrPres",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     on_line_cntxt: None | bool = field(
         default=None,
@@ -3208,7 +3486,7 @@ class PaymentContext3(BaseModel):
             "name": "OnLineCntxt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     attndnc_cntxt: None | AttendanceContext1Code = field(
         default=None,
@@ -3216,7 +3494,7 @@ class PaymentContext3(BaseModel):
             "name": "AttndncCntxt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_envt: None | TransactionEnvironment1Code = field(
         default=None,
@@ -3224,7 +3502,7 @@ class PaymentContext3(BaseModel):
             "name": "TxEnvt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_chanl: None | TransactionChannel1Code = field(
         default=None,
@@ -3232,7 +3510,7 @@ class PaymentContext3(BaseModel):
             "name": "TxChanl",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     attndnt_msg_cpbl: None | bool = field(
         default=None,
@@ -3240,7 +3518,7 @@ class PaymentContext3(BaseModel):
             "name": "AttndntMsgCpbl",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     attndnt_lang: None | str = field(
         default=None,
@@ -3248,8 +3526,8 @@ class PaymentContext3(BaseModel):
             "name": "AttndntLang",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[a-z]{2,2}',
-        }
+            "pattern": r"[a-z]{2,2}",
+        },
     )
     card_data_ntry_md: CardDataReading1Code = field(
         metadata={
@@ -3264,7 +3542,7 @@ class PaymentContext3(BaseModel):
             "name": "FllbckInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     authntcn_mtd: None | CardholderAuthentication2 = field(
         default=None,
@@ -3272,8 +3550,10 @@ class PaymentContext3(BaseModel):
             "name": "AuthntcnMtd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PersonIdentification13(BaseModel):
     model_config = ConfigDict(defer_build=True)
     dt_and_plc_of_birth: None | DateAndPlaceOfBirth1 = field(
@@ -3282,7 +3562,7 @@ class PersonIdentification13(BaseModel):
             "name": "DtAndPlcOfBirth",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     othr: list[GenericPersonIdentification1] = field(
         default_factory=list,
@@ -3290,8 +3570,10 @@ class PersonIdentification13(BaseModel):
             "name": "Othr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PlainCardData1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     pan: str = field(
@@ -3299,7 +3581,7 @@ class PlainCardData1(BaseModel):
             "name": "PAN",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{8,28}',
+            "pattern": r"[0-9]{8,28}",
         }
     )
     card_seq_nb: None | str = field(
@@ -3308,8 +3590,8 @@ class PlainCardData1(BaseModel):
             "name": "CardSeqNb",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{2,3}',
-        }
+            "pattern": r"[0-9]{2,3}",
+        },
     )
     fctv_dt: None | XmlPeriod = field(
         default=None,
@@ -3317,7 +3599,7 @@ class PlainCardData1(BaseModel):
             "name": "FctvDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     xpry_dt: XmlPeriod = field(
         metadata={
@@ -3332,8 +3614,8 @@ class PlainCardData1(BaseModel):
             "name": "SvcCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{3}',
-        }
+            "pattern": r"[0-9]{3}",
+        },
     )
     trck_data: list[TrackData1] = field(
         default_factory=list,
@@ -3341,7 +3623,7 @@ class PlainCardData1(BaseModel):
             "name": "TrckData",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     card_scty_cd: None | CardSecurityInformation1 = field(
         default=None,
@@ -3349,8 +3631,10 @@ class PlainCardData1(BaseModel):
             "name": "CardSctyCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PointOfInteractionCapabilities1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     card_rdng_cpblties: list[CardDataReading1Code] = field(
@@ -3359,7 +3643,7 @@ class PointOfInteractionCapabilities1(BaseModel):
             "name": "CardRdngCpblties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     crdhldr_vrfctn_cpblties: list[CardholderVerificationCapability1Code] = field(
         default_factory=list,
@@ -3367,7 +3651,7 @@ class PointOfInteractionCapabilities1(BaseModel):
             "name": "CrdhldrVrfctnCpblties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     on_line_cpblties: None | OnLineCapability1Code = field(
         default=None,
@@ -3375,7 +3659,7 @@ class PointOfInteractionCapabilities1(BaseModel):
             "name": "OnLineCpblties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     disp_cpblties: list[DisplayCapabilities1] = field(
         default_factory=list,
@@ -3383,7 +3667,7 @@ class PointOfInteractionCapabilities1(BaseModel):
             "name": "DispCpblties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prt_line_width: None | str = field(
         default=None,
@@ -3391,9 +3675,11 @@ class PointOfInteractionCapabilities1(BaseModel):
             "name": "PrtLineWidth",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,3}',
-        }
+            "pattern": r"[0-9]{1,3}",
+        },
     )
+
+
 class PostalAddress24(BaseModel):
     model_config = ConfigDict(defer_build=True)
     adr_tp: None | AddressType3Choice = field(
@@ -3402,7 +3688,7 @@ class PostalAddress24(BaseModel):
             "name": "AdrTp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dept: None | str = field(
         default=None,
@@ -3412,7 +3698,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     sub_dept: None | str = field(
         default=None,
@@ -3422,7 +3708,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     strt_nm: None | str = field(
         default=None,
@@ -3432,7 +3718,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     bldg_nb: None | str = field(
         default=None,
@@ -3442,7 +3728,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 16,
-        }
+        },
     )
     bldg_nm: None | str = field(
         default=None,
@@ -3452,7 +3738,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     flr: None | str = field(
         default=None,
@@ -3462,7 +3748,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     pst_bx: None | str = field(
         default=None,
@@ -3472,7 +3758,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 16,
-        }
+        },
     )
     room: None | str = field(
         default=None,
@@ -3482,7 +3768,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     pst_cd: None | str = field(
         default=None,
@@ -3492,7 +3778,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 16,
-        }
+        },
     )
     twn_nm: None | str = field(
         default=None,
@@ -3502,7 +3788,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     twn_lctn_nm: None | str = field(
         default=None,
@@ -3512,7 +3798,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     dstrct_nm: None | str = field(
         default=None,
@@ -3522,7 +3808,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ctry_sub_dvsn: None | str = field(
         default=None,
@@ -3532,7 +3818,7 @@ class PostalAddress24(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ctry: None | str = field(
         default=None,
@@ -3540,8 +3826,8 @@ class PostalAddress24(BaseModel):
             "name": "Ctry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{2,2}',
-        }
+            "pattern": r"[A-Z]{2,2}",
+        },
     )
     adr_line: list[str] = field(
         default_factory=list,
@@ -3552,8 +3838,10 @@ class PostalAddress24(BaseModel):
             "max_occurs": 7,
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
+
+
 class Price7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: YieldedOrValueType1Choice = field(
@@ -3570,6 +3858,8 @@ class Price7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class ReferredDocumentType4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cd_or_prtry: ReferredDocumentType3Choice = field(
@@ -3587,8 +3877,10 @@ class ReferredDocumentType4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class RemittanceAmount2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     due_pybl_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
@@ -3597,7 +3889,7 @@ class RemittanceAmount2(BaseModel):
             "name": "DuePyblAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dscnt_apld_amt: list[DiscountAmountAndType1] = field(
         default_factory=list,
@@ -3605,7 +3897,7 @@ class RemittanceAmount2(BaseModel):
             "name": "DscntApldAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdt_note_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -3613,7 +3905,7 @@ class RemittanceAmount2(BaseModel):
             "name": "CdtNoteAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax_amt: list[TaxAmountAndType1] = field(
         default_factory=list,
@@ -3621,7 +3913,7 @@ class RemittanceAmount2(BaseModel):
             "name": "TaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     adjstmnt_amt_and_rsn: list[DocumentAdjustment1] = field(
         default_factory=list,
@@ -3629,7 +3921,7 @@ class RemittanceAmount2(BaseModel):
             "name": "AdjstmntAmtAndRsn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rmtd_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -3637,8 +3929,10 @@ class RemittanceAmount2(BaseModel):
             "name": "RmtdAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class RemittanceAmount3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     due_pybl_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
@@ -3647,7 +3941,7 @@ class RemittanceAmount3(BaseModel):
             "name": "DuePyblAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dscnt_apld_amt: list[DiscountAmountAndType1] = field(
         default_factory=list,
@@ -3655,7 +3949,7 @@ class RemittanceAmount3(BaseModel):
             "name": "DscntApldAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdt_note_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -3663,7 +3957,7 @@ class RemittanceAmount3(BaseModel):
             "name": "CdtNoteAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax_amt: list[TaxAmountAndType1] = field(
         default_factory=list,
@@ -3671,7 +3965,7 @@ class RemittanceAmount3(BaseModel):
             "name": "TaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     adjstmnt_amt_and_rsn: list[DocumentAdjustment1] = field(
         default_factory=list,
@@ -3679,7 +3973,7 @@ class RemittanceAmount3(BaseModel):
             "name": "AdjstmntAmtAndRsn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rmtd_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -3687,8 +3981,10 @@ class RemittanceAmount3(BaseModel):
             "name": "RmtdAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class SecurityIdentification19(BaseModel):
     model_config = ConfigDict(defer_build=True)
     isin: None | str = field(
@@ -3697,8 +3993,8 @@ class SecurityIdentification19(BaseModel):
             "name": "ISIN",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{2,2}[A-Z0-9]{9,9}[0-9]{1,1}',
-        }
+            "pattern": r"[A-Z]{2,2}[A-Z0-9]{9,9}[0-9]{1,1}",
+        },
     )
     othr_id: list[OtherIdentification1] = field(
         default_factory=list,
@@ -3706,7 +4002,7 @@ class SecurityIdentification19(BaseModel):
             "name": "OthrId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     desc: None | str = field(
         default=None,
@@ -3716,8 +4012,10 @@ class SecurityIdentification19(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
+
+
 class TaxRecordDetails2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     prd: None | TaxPeriod2 = field(
@@ -3726,7 +4024,7 @@ class TaxRecordDetails2(BaseModel):
             "name": "Prd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: ActiveOrHistoricCurrencyAndAmount = field(
         metadata={
@@ -3735,6 +4033,8 @@ class TaxRecordDetails2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class TransactionDates3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     accptnc_dt_tm: None | XmlDateTime = field(
@@ -3743,7 +4043,7 @@ class TransactionDates3(BaseModel):
             "name": "AccptncDtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     trad_actvty_ctrctl_sttlm_dt: None | XmlDate = field(
         default=None,
@@ -3751,7 +4051,7 @@ class TransactionDates3(BaseModel):
             "name": "TradActvtyCtrctlSttlmDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     trad_dt: None | XmlDate = field(
         default=None,
@@ -3759,7 +4059,7 @@ class TransactionDates3(BaseModel):
             "name": "TradDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intr_bk_sttlm_dt: None | XmlDate = field(
         default=None,
@@ -3767,7 +4067,7 @@ class TransactionDates3(BaseModel):
             "name": "IntrBkSttlmDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     start_dt: None | XmlDate = field(
         default=None,
@@ -3775,7 +4075,7 @@ class TransactionDates3(BaseModel):
             "name": "StartDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     end_dt: None | XmlDate = field(
         default=None,
@@ -3783,7 +4083,7 @@ class TransactionDates3(BaseModel):
             "name": "EndDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_dt_tm: None | XmlDateTime = field(
         default=None,
@@ -3791,7 +4091,7 @@ class TransactionDates3(BaseModel):
             "name": "TxDtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: list[ProprietaryDate3] = field(
         default_factory=list,
@@ -3799,8 +4099,10 @@ class TransactionDates3(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ActiveOrHistoricCurrencyAndAmountRange2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: ImpliedCurrencyAmountRange1Choice = field(
@@ -3816,16 +4118,18 @@ class ActiveOrHistoricCurrencyAndAmountRange2(BaseModel):
             "name": "CdtDbtInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ccy: str = field(
         metadata={
             "name": "Ccy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
+            "pattern": r"[A-Z]{3,3}",
         }
     )
+
+
 class BranchData3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: None | str = field(
@@ -3836,7 +4140,7 @@ class BranchData3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     lei: None | str = field(
         default=None,
@@ -3844,8 +4148,8 @@ class BranchData3(BaseModel):
             "name": "LEI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z0-9]{18,18}[0-9]{2,2}',
-        }
+            "pattern": r"[A-Z0-9]{18,18}[0-9]{2,2}",
+        },
     )
     nm: None | str = field(
         default=None,
@@ -3855,7 +4159,7 @@ class BranchData3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     pstl_adr: None | PostalAddress24 = field(
         default=None,
@@ -3863,8 +4167,10 @@ class BranchData3(BaseModel):
             "name": "PstlAdr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardIndividualTransaction2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     iccrltd_data: None | str = field(
@@ -3875,7 +4181,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 1025,
-        }
+        },
     )
     pmt_cntxt: None | PaymentContext3 = field(
         default=None,
@@ -3883,7 +4189,7 @@ class CardIndividualTransaction2(BaseModel):
             "name": "PmtCntxt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_svc: None | CardPaymentServiceType2Code = field(
         default=None,
@@ -3891,7 +4197,7 @@ class CardIndividualTransaction2(BaseModel):
             "name": "AddtlSvc",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_ctgy: None | str = field(
         default=None,
@@ -3901,7 +4207,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     sale_rcncltn_id: None | str = field(
         default=None,
@@ -3911,7 +4217,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     sale_ref_nb: None | str = field(
         default=None,
@@ -3921,7 +4227,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     re_presntmnt_rsn: None | str = field(
         default=None,
@@ -3931,7 +4237,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 4,
-        }
+        },
     )
     seq_nb: None | str = field(
         default=None,
@@ -3941,7 +4247,7 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     tx_id: None | TransactionIdentifier1 = field(
         default=None,
@@ -3949,7 +4255,7 @@ class CardIndividualTransaction2(BaseModel):
             "name": "TxId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     pdct: None | Product2 = field(
         default=None,
@@ -3957,7 +4263,7 @@ class CardIndividualTransaction2(BaseModel):
             "name": "Pdct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     vldtn_dt: None | XmlDate = field(
         default=None,
@@ -3965,7 +4271,7 @@ class CardIndividualTransaction2(BaseModel):
             "name": "VldtnDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     vldtn_seq_nb: None | str = field(
         default=None,
@@ -3975,8 +4281,10 @@ class CardIndividualTransaction2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class CashAccount38(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: AccountIdentification4Choice = field(
@@ -3992,7 +4300,7 @@ class CashAccount38(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ccy: None | str = field(
         default=None,
@@ -4000,8 +4308,8 @@ class CashAccount38(BaseModel):
             "name": "Ccy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
-        }
+            "pattern": r"[A-Z]{3,3}",
+        },
     )
     nm: None | str = field(
         default=None,
@@ -4011,7 +4319,7 @@ class CashAccount38(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     prxy: None | ProxyAccountIdentification1 = field(
         default=None,
@@ -4019,8 +4327,10 @@ class CashAccount38(BaseModel):
             "name": "Prxy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CreditorReferenceInformation2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | CreditorReferenceType2 = field(
@@ -4029,7 +4339,7 @@ class CreditorReferenceInformation2(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ref: None | str = field(
         default=None,
@@ -4039,8 +4349,10 @@ class CreditorReferenceInformation2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
+
+
 class DocumentLineInformation1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: list[DocumentLineIdentification1] = field(
@@ -4050,7 +4362,7 @@ class DocumentLineInformation1(BaseModel):
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_occurs": 1,
-        }
+        },
     )
     desc: None | str = field(
         default=None,
@@ -4060,7 +4372,7 @@ class DocumentLineInformation1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 2048,
-        }
+        },
     )
     amt: None | RemittanceAmount3 = field(
         default=None,
@@ -4068,8 +4380,10 @@ class DocumentLineInformation1(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class FinancialInstitutionIdentification18(BaseModel):
     model_config = ConfigDict(defer_build=True)
     bicfi: None | str = field(
@@ -4078,8 +4392,8 @@ class FinancialInstitutionIdentification18(BaseModel):
             "name": "BICFI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}',
-        }
+            "pattern": r"[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}",
+        },
     )
     clr_sys_mmb_id: None | ClearingSystemMemberIdentification2 = field(
         default=None,
@@ -4087,7 +4401,7 @@ class FinancialInstitutionIdentification18(BaseModel):
             "name": "ClrSysMmbId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     lei: None | str = field(
         default=None,
@@ -4095,8 +4409,8 @@ class FinancialInstitutionIdentification18(BaseModel):
             "name": "LEI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z0-9]{18,18}[0-9]{2,2}',
-        }
+            "pattern": r"[A-Z0-9]{18,18}[0-9]{2,2}",
+        },
     )
     nm: None | str = field(
         default=None,
@@ -4106,7 +4420,7 @@ class FinancialInstitutionIdentification18(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     pstl_adr: None | PostalAddress24 = field(
         default=None,
@@ -4114,7 +4428,7 @@ class FinancialInstitutionIdentification18(BaseModel):
             "name": "PstlAdr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     othr: None | GenericFinancialIdentification1 = field(
         default=None,
@@ -4122,8 +4436,10 @@ class FinancialInstitutionIdentification18(BaseModel):
             "name": "Othr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class NameAndAddress16(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nm: str = field(
@@ -4142,6 +4458,8 @@ class NameAndAddress16(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class Party38Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     org_id: None | OrganisationIdentification29 = field(
@@ -4150,7 +4468,7 @@ class Party38Choice(BaseModel):
             "name": "OrgId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prvt_id: None | PersonIdentification13 = field(
         default=None,
@@ -4158,8 +4476,10 @@ class Party38Choice(BaseModel):
             "name": "PrvtId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PaymentCard4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     plain_card_data: None | PlainCardData1 = field(
@@ -4168,7 +4488,7 @@ class PaymentCard4(BaseModel):
             "name": "PlainCardData",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     card_ctry_cd: None | str = field(
         default=None,
@@ -4176,8 +4496,8 @@ class PaymentCard4(BaseModel):
             "name": "CardCtryCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{3}',
-        }
+            "pattern": r"[0-9]{3}",
+        },
     )
     card_brnd: None | GenericIdentification1 = field(
         default=None,
@@ -4185,7 +4505,7 @@ class PaymentCard4(BaseModel):
             "name": "CardBrnd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_card_data: None | str = field(
         default=None,
@@ -4195,8 +4515,10 @@ class PaymentCard4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
+
+
 class PointOfInteraction1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: GenericIdentification32 = field(
@@ -4214,7 +4536,7 @@ class PointOfInteraction1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     grp_id: None | str = field(
         default=None,
@@ -4224,7 +4546,7 @@ class PointOfInteraction1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     cpblties: None | PointOfInteractionCapabilities1 = field(
         default=None,
@@ -4232,7 +4554,7 @@ class PointOfInteraction1(BaseModel):
             "name": "Cpblties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cmpnt: list[PointOfInteractionComponent1] = field(
         default_factory=list,
@@ -4240,8 +4562,10 @@ class PointOfInteraction1(BaseModel):
             "name": "Cmpnt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxAmount2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     rate: None | Decimal = field(
@@ -4252,7 +4576,7 @@ class TaxAmount2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 11,
             "fraction_digits": 10,
-        }
+        },
     )
     taxbl_base_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -4260,7 +4584,7 @@ class TaxAmount2(BaseModel):
             "name": "TaxblBaseAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -4268,7 +4592,7 @@ class TaxAmount2(BaseModel):
             "name": "TtlAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dtls: list[TaxRecordDetails2] = field(
         default_factory=list,
@@ -4276,8 +4600,10 @@ class TaxAmount2(BaseModel):
             "name": "Dtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TotalsPerBankTransactionCode5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nb_of_ntries: None | str = field(
@@ -4286,8 +4612,8 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "NbOfNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[0-9]{1,15}',
-        }
+            "pattern": r"[0-9]{1,15}",
+        },
     )
     sum: None | Decimal = field(
         default=None,
@@ -4297,7 +4623,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 17,
-        }
+        },
     )
     ttl_net_ntry: None | AmountAndDirection35 = field(
         default=None,
@@ -4305,7 +4631,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "TtlNetNtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdt_ntries: None | NumberAndSumOfTransactions1 = field(
         default=None,
@@ -4313,7 +4639,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "CdtNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbt_ntries: None | NumberAndSumOfTransactions1 = field(
         default=None,
@@ -4321,7 +4647,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "DbtNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fcst_ind: None | bool = field(
         default=None,
@@ -4329,7 +4655,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "FcstInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     bk_tx_cd: BankTransactionCodeStructure4 = field(
         metadata={
@@ -4344,7 +4670,7 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "Avlbty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt: None | DateAndDateTime2Choice = field(
         default=None,
@@ -4352,8 +4678,10 @@ class TotalsPerBankTransactionCode5(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TransactionPrice4Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     deal_pric: None | Price7 = field(
@@ -4362,7 +4690,7 @@ class TransactionPrice4Choice(BaseModel):
             "name": "DealPric",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: list[ProprietaryPrice2] = field(
         default_factory=list,
@@ -4370,8 +4698,10 @@ class TransactionPrice4Choice(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class BranchAndFinancialInstitutionIdentification6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     fin_instn_id: FinancialInstitutionIdentification18 = field(
@@ -4387,8 +4717,10 @@ class BranchAndFinancialInstitutionIdentification6(BaseModel):
             "name": "BrnchId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardEntry4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     card: None | PaymentCard4 = field(
@@ -4397,7 +4729,7 @@ class CardEntry4(BaseModel):
             "name": "Card",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     poi: None | PointOfInteraction1 = field(
         default=None,
@@ -4405,7 +4737,7 @@ class CardEntry4(BaseModel):
             "name": "POI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     aggtd_ntry: None | CardAggregated2 = field(
         default=None,
@@ -4413,7 +4745,7 @@ class CardEntry4(BaseModel):
             "name": "AggtdNtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     pre_pd_acct: None | CashAccount38 = field(
         default=None,
@@ -4421,8 +4753,10 @@ class CardEntry4(BaseModel):
             "name": "PrePdAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardTransaction3Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     aggtd: None | CardAggregated2 = field(
@@ -4431,7 +4765,7 @@ class CardTransaction3Choice(BaseModel):
             "name": "Aggtd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     indv: None | CardIndividualTransaction2 = field(
         default=None,
@@ -4439,8 +4773,10 @@ class CardTransaction3Choice(BaseModel):
             "name": "Indv",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PartyIdentification135(BaseModel):
     model_config = ConfigDict(defer_build=True)
     nm: None | str = field(
@@ -4451,7 +4787,7 @@ class PartyIdentification135(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     pstl_adr: None | PostalAddress24 = field(
         default=None,
@@ -4459,7 +4795,7 @@ class PartyIdentification135(BaseModel):
             "name": "PstlAdr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     id: None | Party38Choice = field(
         default=None,
@@ -4467,7 +4803,7 @@ class PartyIdentification135(BaseModel):
             "name": "Id",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ctry_of_res: None | str = field(
         default=None,
@@ -4475,8 +4811,8 @@ class PartyIdentification135(BaseModel):
             "name": "CtryOfRes",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{2,2}',
-        }
+            "pattern": r"[A-Z]{2,2}",
+        },
     )
     ctct_dtls: None | Contact4 = field(
         default=None,
@@ -4484,8 +4820,10 @@ class PartyIdentification135(BaseModel):
             "name": "CtctDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Rate4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: RateType4Choice = field(
@@ -4501,8 +4839,10 @@ class Rate4(BaseModel):
             "name": "VldtyRg",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ReferredDocumentInformation7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | ReferredDocumentType4 = field(
@@ -4511,7 +4851,7 @@ class ReferredDocumentInformation7(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     nb: None | str = field(
         default=None,
@@ -4521,7 +4861,7 @@ class ReferredDocumentInformation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     rltd_dt: None | XmlDate = field(
         default=None,
@@ -4529,7 +4869,7 @@ class ReferredDocumentInformation7(BaseModel):
             "name": "RltdDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     line_dtls: list[DocumentLineInformation1] = field(
         default_factory=list,
@@ -4537,8 +4877,10 @@ class ReferredDocumentInformation7(BaseModel):
             "name": "LineDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class RemittanceLocationData1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     mtd: RemittanceLocationMethod2Code = field(
@@ -4556,7 +4898,7 @@ class RemittanceLocationData1(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 2048,
-        }
+        },
     )
     pstl_adr: None | NameAndAddress16 = field(
         default=None,
@@ -4564,8 +4906,10 @@ class RemittanceLocationData1(BaseModel):
             "name": "PstlAdr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxRecord2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | str = field(
@@ -4576,7 +4920,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ctgy: None | str = field(
         default=None,
@@ -4586,7 +4930,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ctgy_dtls: None | str = field(
         default=None,
@@ -4596,7 +4940,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     dbtr_sts: None | str = field(
         default=None,
@@ -4606,7 +4950,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     cert_id: None | str = field(
         default=None,
@@ -4616,7 +4960,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     frms_cd: None | str = field(
         default=None,
@@ -4626,7 +4970,7 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     prd: None | TaxPeriod2 = field(
         default=None,
@@ -4634,7 +4978,7 @@ class TaxRecord2(BaseModel):
             "name": "Prd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax_amt: None | TaxAmount2 = field(
         default=None,
@@ -4642,7 +4986,7 @@ class TaxRecord2(BaseModel):
             "name": "TaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_inf: None | str = field(
         default=None,
@@ -4652,8 +4996,10 @@ class TaxRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
+
+
 class TotalTransactions6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     ttl_ntries: None | NumberAndSumOfTransactions4 = field(
@@ -4662,7 +5008,7 @@ class TotalTransactions6(BaseModel):
             "name": "TtlNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_cdt_ntries: None | NumberAndSumOfTransactions1 = field(
         default=None,
@@ -4670,7 +5016,7 @@ class TotalTransactions6(BaseModel):
             "name": "TtlCdtNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_dbt_ntries: None | NumberAndSumOfTransactions1 = field(
         default=None,
@@ -4678,7 +5024,7 @@ class TotalTransactions6(BaseModel):
             "name": "TtlDbtNtries",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_ntries_per_bk_tx_cd: list[TotalsPerBankTransactionCode5] = field(
         default_factory=list,
@@ -4686,8 +5032,10 @@ class TotalTransactions6(BaseModel):
             "name": "TtlNtriesPerBkTxCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class AccountInterest4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: None | InterestType1Choice = field(
@@ -4696,7 +5044,7 @@ class AccountInterest4(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rate: list[Rate4] = field(
         default_factory=list,
@@ -4704,7 +5052,7 @@ class AccountInterest4(BaseModel):
             "name": "Rate",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fr_to_dt: None | DateTimePeriod1 = field(
         default=None,
@@ -4712,7 +5060,7 @@ class AccountInterest4(BaseModel):
             "name": "FrToDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rsn: None | str = field(
         default=None,
@@ -4722,7 +5070,7 @@ class AccountInterest4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     tax: None | TaxCharges2 = field(
         default=None,
@@ -4730,8 +5078,10 @@ class AccountInterest4(BaseModel):
             "name": "Tax",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CardTransaction17(BaseModel):
     model_config = ConfigDict(defer_build=True)
     card: None | PaymentCard4 = field(
@@ -4740,7 +5090,7 @@ class CardTransaction17(BaseModel):
             "name": "Card",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     poi: None | PointOfInteraction1 = field(
         default=None,
@@ -4748,7 +5098,7 @@ class CardTransaction17(BaseModel):
             "name": "POI",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx: None | CardTransaction3Choice = field(
         default=None,
@@ -4756,7 +5106,7 @@ class CardTransaction17(BaseModel):
             "name": "Tx",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     pre_pd_acct: None | CashAccount38 = field(
         default=None,
@@ -4764,8 +5114,10 @@ class CardTransaction17(BaseModel):
             "name": "PrePdAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class CashAccount39(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: AccountIdentification4Choice = field(
@@ -4781,7 +5133,7 @@ class CashAccount39(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ccy: None | str = field(
         default=None,
@@ -4789,8 +5141,8 @@ class CashAccount39(BaseModel):
             "name": "Ccy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-            "pattern": r'[A-Z]{3,3}',
-        }
+            "pattern": r"[A-Z]{3,3}",
+        },
     )
     nm: None | str = field(
         default=None,
@@ -4800,7 +5152,7 @@ class CashAccount39(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 70,
-        }
+        },
     )
     prxy: None | ProxyAccountIdentification1 = field(
         default=None,
@@ -4808,7 +5160,7 @@ class CashAccount39(BaseModel):
             "name": "Prxy",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ownr: None | PartyIdentification135 = field(
         default=None,
@@ -4816,7 +5168,7 @@ class CashAccount39(BaseModel):
             "name": "Ownr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     svcr: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -4824,8 +5176,10 @@ class CashAccount39(BaseModel):
             "name": "Svcr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ChargesRecord3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: ActiveOrHistoricCurrencyAndAmount = field(
@@ -4841,7 +5195,7 @@ class ChargesRecord3(BaseModel):
             "name": "CdtDbtInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     chrg_incl_ind: None | bool = field(
         default=None,
@@ -4849,7 +5203,7 @@ class ChargesRecord3(BaseModel):
             "name": "ChrgInclInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tp: None | ChargeType3Choice = field(
         default=None,
@@ -4857,7 +5211,7 @@ class ChargesRecord3(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rate: None | Decimal = field(
         default=None,
@@ -4867,7 +5221,7 @@ class ChargesRecord3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 11,
             "fraction_digits": 10,
-        }
+        },
     )
     br: None | ChargeBearerType1Code = field(
         default=None,
@@ -4875,7 +5229,7 @@ class ChargesRecord3(BaseModel):
             "name": "Br",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -4883,7 +5237,7 @@ class ChargesRecord3(BaseModel):
             "name": "Agt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax: None | TaxCharges2 = field(
         default=None,
@@ -4891,8 +5245,10 @@ class ChargesRecord3(BaseModel):
             "name": "Tax",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Garnishment3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: GarnishmentType1 = field(
@@ -4908,7 +5264,7 @@ class Garnishment3(BaseModel):
             "name": "Grnshee",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     grnshmt_admstr: None | PartyIdentification135 = field(
         default=None,
@@ -4916,7 +5272,7 @@ class Garnishment3(BaseModel):
             "name": "GrnshmtAdmstr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ref_nb: None | str = field(
         default=None,
@@ -4926,7 +5282,7 @@ class Garnishment3(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     dt: None | XmlDate = field(
         default=None,
@@ -4934,7 +5290,7 @@ class Garnishment3(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rmtd_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -4942,7 +5298,7 @@ class Garnishment3(BaseModel):
             "name": "RmtdAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fmly_mdcl_insrnc_ind: None | bool = field(
         default=None,
@@ -4950,7 +5306,7 @@ class Garnishment3(BaseModel):
             "name": "FmlyMdclInsrncInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     mplyee_termntn_ind: None | bool = field(
         default=None,
@@ -4958,8 +5314,10 @@ class Garnishment3(BaseModel):
             "name": "MplyeeTermntnInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class GroupHeader81(BaseModel):
     model_config = ConfigDict(defer_build=True)
     msg_id: str = field(
@@ -4984,7 +5342,7 @@ class GroupHeader81(BaseModel):
             "name": "MsgRcpt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     msg_pgntn: None | Pagination1 = field(
         default=None,
@@ -4992,7 +5350,7 @@ class GroupHeader81(BaseModel):
             "name": "MsgPgntn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     orgnl_biz_qry: None | OriginalBusinessQuery1 = field(
         default=None,
@@ -5000,7 +5358,7 @@ class GroupHeader81(BaseModel):
             "name": "OrgnlBizQry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_inf: None | str = field(
         default=None,
@@ -5010,8 +5368,10 @@ class GroupHeader81(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 500,
-        }
+        },
     )
+
+
 class InterestRecord2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     amt: ActiveOrHistoricCurrencyAndAmount = field(
@@ -5034,7 +5394,7 @@ class InterestRecord2(BaseModel):
             "name": "Tp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rate: None | Rate4 = field(
         default=None,
@@ -5042,7 +5402,7 @@ class InterestRecord2(BaseModel):
             "name": "Rate",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fr_to_dt: None | DateTimePeriod1 = field(
         default=None,
@@ -5050,7 +5410,7 @@ class InterestRecord2(BaseModel):
             "name": "FrToDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rsn: None | str = field(
         default=None,
@@ -5060,7 +5420,7 @@ class InterestRecord2(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     tax: None | TaxCharges2 = field(
         default=None,
@@ -5068,8 +5428,10 @@ class InterestRecord2(BaseModel):
             "name": "Tax",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Party40Choice(BaseModel):
     model_config = ConfigDict(defer_build=True)
     pty: None | PartyIdentification135 = field(
@@ -5078,7 +5440,7 @@ class Party40Choice(BaseModel):
             "name": "Pty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5086,8 +5448,10 @@ class Party40Choice(BaseModel):
             "name": "Agt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class PaymentReturnReason5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     orgnl_bk_tx_cd: None | BankTransactionCodeStructure4 = field(
@@ -5096,7 +5460,7 @@ class PaymentReturnReason5(BaseModel):
             "name": "OrgnlBkTxCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     orgtr: None | PartyIdentification135 = field(
         default=None,
@@ -5104,7 +5468,7 @@ class PaymentReturnReason5(BaseModel):
             "name": "Orgtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rsn: None | ReturnReason5Choice = field(
         default=None,
@@ -5112,7 +5476,7 @@ class PaymentReturnReason5(BaseModel):
             "name": "Rsn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_inf: list[str] = field(
         default_factory=list,
@@ -5122,8 +5486,10 @@ class PaymentReturnReason5(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 105,
-        }
+        },
     )
+
+
 class ProprietaryAgent4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -5142,6 +5508,8 @@ class ProprietaryAgent4(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class RemittanceLocation7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     rmt_id: None | str = field(
@@ -5152,7 +5520,7 @@ class RemittanceLocation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     rmt_lctn_dtls: list[RemittanceLocationData1] = field(
         default_factory=list,
@@ -5160,8 +5528,10 @@ class RemittanceLocation7(BaseModel):
             "name": "RmtLctnDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxInformation7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cdtr: None | TaxParty1 = field(
@@ -5170,7 +5540,7 @@ class TaxInformation7(BaseModel):
             "name": "Cdtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbtr: None | TaxParty2 = field(
         default=None,
@@ -5178,7 +5548,7 @@ class TaxInformation7(BaseModel):
             "name": "Dbtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ultmt_dbtr: None | TaxParty2 = field(
         default=None,
@@ -5186,7 +5556,7 @@ class TaxInformation7(BaseModel):
             "name": "UltmtDbtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     admstn_zone: None | str = field(
         default=None,
@@ -5196,7 +5566,7 @@ class TaxInformation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ref_nb: None | str = field(
         default=None,
@@ -5206,7 +5576,7 @@ class TaxInformation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     mtd: None | str = field(
         default=None,
@@ -5216,7 +5586,7 @@ class TaxInformation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ttl_taxbl_base_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -5224,7 +5594,7 @@ class TaxInformation7(BaseModel):
             "name": "TtlTaxblBaseAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_tax_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -5232,7 +5602,7 @@ class TaxInformation7(BaseModel):
             "name": "TtlTaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt: None | XmlDate = field(
         default=None,
@@ -5240,7 +5610,7 @@ class TaxInformation7(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     seq_nb: None | Decimal = field(
         default=None,
@@ -5250,7 +5620,7 @@ class TaxInformation7(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 0,
-        }
+        },
     )
     rcrd: list[TaxRecord2] = field(
         default_factory=list,
@@ -5258,8 +5628,10 @@ class TaxInformation7(BaseModel):
             "name": "Rcrd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TaxInformation8(BaseModel):
     model_config = ConfigDict(defer_build=True)
     cdtr: None | TaxParty1 = field(
@@ -5268,7 +5640,7 @@ class TaxInformation8(BaseModel):
             "name": "Cdtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbtr: None | TaxParty2 = field(
         default=None,
@@ -5276,7 +5648,7 @@ class TaxInformation8(BaseModel):
             "name": "Dbtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     admstn_zone: None | str = field(
         default=None,
@@ -5286,7 +5658,7 @@ class TaxInformation8(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ref_nb: None | str = field(
         default=None,
@@ -5296,7 +5668,7 @@ class TaxInformation8(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     mtd: None | str = field(
         default=None,
@@ -5306,7 +5678,7 @@ class TaxInformation8(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     ttl_taxbl_base_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -5314,7 +5686,7 @@ class TaxInformation8(BaseModel):
             "name": "TtlTaxblBaseAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ttl_tax_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -5322,7 +5694,7 @@ class TaxInformation8(BaseModel):
             "name": "TtlTaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dt: None | XmlDate = field(
         default=None,
@@ -5330,7 +5702,7 @@ class TaxInformation8(BaseModel):
             "name": "Dt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     seq_nb: None | Decimal = field(
         default=None,
@@ -5340,7 +5712,7 @@ class TaxInformation8(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 0,
-        }
+        },
     )
     rcrd: list[TaxRecord2] = field(
         default_factory=list,
@@ -5348,8 +5720,10 @@ class TaxInformation8(BaseModel):
             "name": "Rcrd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Charges6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     ttl_chrgs_and_tax_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
@@ -5358,7 +5732,7 @@ class Charges6(BaseModel):
             "name": "TtlChrgsAndTaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rcrd: list[ChargesRecord3] = field(
         default_factory=list,
@@ -5366,8 +5740,10 @@ class Charges6(BaseModel):
             "name": "Rcrd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ProprietaryParty5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     tp: str = field(
@@ -5386,6 +5762,8 @@ class ProprietaryParty5(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
         }
     )
+
+
 class StructuredRemittanceInformation16(BaseModel):
     model_config = ConfigDict(defer_build=True)
     rfrd_doc_inf: list[ReferredDocumentInformation7] = field(
@@ -5394,7 +5772,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "RfrdDocInf",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rfrd_doc_amt: None | RemittanceAmount2 = field(
         default=None,
@@ -5402,7 +5780,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "RfrdDocAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdtr_ref_inf: None | CreditorReferenceInformation2 = field(
         default=None,
@@ -5410,7 +5788,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "CdtrRefInf",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     invcr: None | PartyIdentification135 = field(
         default=None,
@@ -5418,7 +5796,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "Invcr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     invcee: None | PartyIdentification135 = field(
         default=None,
@@ -5426,7 +5804,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "Invcee",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax_rmt: None | TaxInformation7 = field(
         default=None,
@@ -5434,7 +5812,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "TaxRmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     grnshmt_rmt: None | Garnishment3 = field(
         default=None,
@@ -5442,7 +5820,7 @@ class StructuredRemittanceInformation16(BaseModel):
             "name": "GrnshmtRmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_rmt_inf: list[str] = field(
         default_factory=list,
@@ -5453,8 +5831,10 @@ class StructuredRemittanceInformation16(BaseModel):
             "max_occurs": 3,
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
+
+
 class TransactionAgents5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     instg_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
@@ -5463,7 +5843,7 @@ class TransactionAgents5(BaseModel):
             "name": "InstgAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     instd_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5471,7 +5851,7 @@ class TransactionAgents5(BaseModel):
             "name": "InstdAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbtr_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5479,7 +5859,7 @@ class TransactionAgents5(BaseModel):
             "name": "DbtrAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdtr_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5487,7 +5867,7 @@ class TransactionAgents5(BaseModel):
             "name": "CdtrAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrmy_agt1: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5495,7 +5875,7 @@ class TransactionAgents5(BaseModel):
             "name": "IntrmyAgt1",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrmy_agt2: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5503,7 +5883,7 @@ class TransactionAgents5(BaseModel):
             "name": "IntrmyAgt2",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrmy_agt3: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5511,7 +5891,7 @@ class TransactionAgents5(BaseModel):
             "name": "IntrmyAgt3",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rcvg_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5519,7 +5899,7 @@ class TransactionAgents5(BaseModel):
             "name": "RcvgAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dlvrg_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5527,7 +5907,7 @@ class TransactionAgents5(BaseModel):
             "name": "DlvrgAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     issg_agt: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5535,7 +5915,7 @@ class TransactionAgents5(BaseModel):
             "name": "IssgAgt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     sttlm_plc: None | BranchAndFinancialInstitutionIdentification6 = field(
         default=None,
@@ -5543,7 +5923,7 @@ class TransactionAgents5(BaseModel):
             "name": "SttlmPlc",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: list[ProprietaryAgent4] = field(
         default_factory=list,
@@ -5551,8 +5931,10 @@ class TransactionAgents5(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TransactionInterest4(BaseModel):
     model_config = ConfigDict(defer_build=True)
     ttl_intrst_and_tax_amt: None | ActiveOrHistoricCurrencyAndAmount = field(
@@ -5561,7 +5943,7 @@ class TransactionInterest4(BaseModel):
             "name": "TtlIntrstAndTaxAmt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rcrd: list[InterestRecord2] = field(
         default_factory=list,
@@ -5569,8 +5951,10 @@ class TransactionInterest4(BaseModel):
             "name": "Rcrd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class RemittanceInformation16(BaseModel):
     model_config = ConfigDict(defer_build=True)
     ustrd: list[str] = field(
@@ -5581,7 +5965,7 @@ class RemittanceInformation16(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 140,
-        }
+        },
     )
     strd: list[StructuredRemittanceInformation16] = field(
         default_factory=list,
@@ -5589,8 +5973,10 @@ class RemittanceInformation16(BaseModel):
             "name": "Strd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class TransactionParties6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     initg_pty: None | Party40Choice = field(
@@ -5599,7 +5985,7 @@ class TransactionParties6(BaseModel):
             "name": "InitgPty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbtr: None | Party40Choice = field(
         default=None,
@@ -5607,7 +5993,7 @@ class TransactionParties6(BaseModel):
             "name": "Dbtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     dbtr_acct: None | CashAccount38 = field(
         default=None,
@@ -5615,7 +6001,7 @@ class TransactionParties6(BaseModel):
             "name": "DbtrAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ultmt_dbtr: None | Party40Choice = field(
         default=None,
@@ -5623,7 +6009,7 @@ class TransactionParties6(BaseModel):
             "name": "UltmtDbtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdtr: None | Party40Choice = field(
         default=None,
@@ -5631,7 +6017,7 @@ class TransactionParties6(BaseModel):
             "name": "Cdtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdtr_acct: None | CashAccount38 = field(
         default=None,
@@ -5639,7 +6025,7 @@ class TransactionParties6(BaseModel):
             "name": "CdtrAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ultmt_cdtr: None | Party40Choice = field(
         default=None,
@@ -5647,7 +6033,7 @@ class TransactionParties6(BaseModel):
             "name": "UltmtCdtr",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tradg_pty: None | Party40Choice = field(
         default=None,
@@ -5655,7 +6041,7 @@ class TransactionParties6(BaseModel):
             "name": "TradgPty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     prtry: list[ProprietaryParty5] = field(
         default_factory=list,
@@ -5663,8 +6049,10 @@ class TransactionParties6(BaseModel):
             "name": "Prtry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class EntryTransaction10(BaseModel):
     model_config = ConfigDict(defer_build=True)
     refs: None | TransactionReferences6 = field(
@@ -5673,7 +6061,7 @@ class EntryTransaction10(BaseModel):
             "name": "Refs",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt: None | ActiveOrHistoricCurrencyAndAmount = field(
         default=None,
@@ -5681,7 +6069,7 @@ class EntryTransaction10(BaseModel):
             "name": "Amt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cdt_dbt_ind: None | CreditDebitCode = field(
         default=None,
@@ -5689,7 +6077,7 @@ class EntryTransaction10(BaseModel):
             "name": "CdtDbtInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt_dtls: None | AmountAndCurrencyExchange3 = field(
         default=None,
@@ -5697,7 +6085,7 @@ class EntryTransaction10(BaseModel):
             "name": "AmtDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     avlbty: list[CashAvailability1] = field(
         default_factory=list,
@@ -5705,7 +6093,7 @@ class EntryTransaction10(BaseModel):
             "name": "Avlbty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     bk_tx_cd: None | BankTransactionCodeStructure4 = field(
         default=None,
@@ -5713,7 +6101,7 @@ class EntryTransaction10(BaseModel):
             "name": "BkTxCd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     chrgs: None | Charges6 = field(
         default=None,
@@ -5721,7 +6109,7 @@ class EntryTransaction10(BaseModel):
             "name": "Chrgs",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrst: None | TransactionInterest4 = field(
         default=None,
@@ -5729,7 +6117,7 @@ class EntryTransaction10(BaseModel):
             "name": "Intrst",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_pties: None | TransactionParties6 = field(
         default=None,
@@ -5737,7 +6125,7 @@ class EntryTransaction10(BaseModel):
             "name": "RltdPties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_agts: None | TransactionAgents5 = field(
         default=None,
@@ -5745,7 +6133,7 @@ class EntryTransaction10(BaseModel):
             "name": "RltdAgts",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     lcl_instrm: None | LocalInstrument2Choice = field(
         default=None,
@@ -5753,7 +6141,7 @@ class EntryTransaction10(BaseModel):
             "name": "LclInstrm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     purp: None | Purpose2Choice = field(
         default=None,
@@ -5761,7 +6149,7 @@ class EntryTransaction10(BaseModel):
             "name": "Purp",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_rmt_inf: list[RemittanceLocation7] = field(
         default_factory=list,
@@ -5770,7 +6158,7 @@ class EntryTransaction10(BaseModel):
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "max_occurs": 10,
-        }
+        },
     )
     rmt_inf: None | RemittanceInformation16 = field(
         default=None,
@@ -5778,7 +6166,7 @@ class EntryTransaction10(BaseModel):
             "name": "RmtInf",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_dts: None | TransactionDates3 = field(
         default=None,
@@ -5786,7 +6174,7 @@ class EntryTransaction10(BaseModel):
             "name": "RltdDts",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_pric: None | TransactionPrice4Choice = field(
         default=None,
@@ -5794,7 +6182,7 @@ class EntryTransaction10(BaseModel):
             "name": "RltdPric",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rltd_qties: list[TransactionQuantities3Choice] = field(
         default_factory=list,
@@ -5802,7 +6190,7 @@ class EntryTransaction10(BaseModel):
             "name": "RltdQties",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fin_instrm_id: None | SecurityIdentification19 = field(
         default=None,
@@ -5810,7 +6198,7 @@ class EntryTransaction10(BaseModel):
             "name": "FinInstrmId",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tax: None | TaxInformation8 = field(
         default=None,
@@ -5818,7 +6206,7 @@ class EntryTransaction10(BaseModel):
             "name": "Tax",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rtr_inf: None | PaymentReturnReason5 = field(
         default=None,
@@ -5826,7 +6214,7 @@ class EntryTransaction10(BaseModel):
             "name": "RtrInf",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     corp_actn: None | CorporateAction9 = field(
         default=None,
@@ -5834,7 +6222,7 @@ class EntryTransaction10(BaseModel):
             "name": "CorpActn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     sfkpg_acct: None | SecuritiesAccount19 = field(
         default=None,
@@ -5842,7 +6230,7 @@ class EntryTransaction10(BaseModel):
             "name": "SfkpgAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     csh_dpst: list[CashDeposit1] = field(
         default_factory=list,
@@ -5850,7 +6238,7 @@ class EntryTransaction10(BaseModel):
             "name": "CshDpst",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     card_tx: None | CardTransaction17 = field(
         default=None,
@@ -5858,7 +6246,7 @@ class EntryTransaction10(BaseModel):
             "name": "CardTx",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_tx_inf: None | str = field(
         default=None,
@@ -5868,7 +6256,7 @@ class EntryTransaction10(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 500,
-        }
+        },
     )
     splmtry_data: list[SupplementaryData1] = field(
         default_factory=list,
@@ -5876,8 +6264,10 @@ class EntryTransaction10(BaseModel):
             "name": "SplmtryData",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class EntryDetails9(BaseModel):
     model_config = ConfigDict(defer_build=True)
     btch: None | BatchInformation2 = field(
@@ -5886,7 +6276,7 @@ class EntryDetails9(BaseModel):
             "name": "Btch",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tx_dtls: list[EntryTransaction10] = field(
         default_factory=list,
@@ -5894,8 +6284,10 @@ class EntryDetails9(BaseModel):
             "name": "TxDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class ReportEntry10(BaseModel):
     model_config = ConfigDict(defer_build=True)
     ntry_ref: None | str = field(
@@ -5906,7 +6298,7 @@ class ReportEntry10(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     amt: ActiveOrHistoricCurrencyAndAmount = field(
         metadata={
@@ -5928,7 +6320,7 @@ class ReportEntry10(BaseModel):
             "name": "RvslInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     sts: EntryStatus1Choice = field(
         metadata={
@@ -5943,7 +6335,7 @@ class ReportEntry10(BaseModel):
             "name": "BookgDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     val_dt: None | DateAndDateTime2Choice = field(
         default=None,
@@ -5951,7 +6343,7 @@ class ReportEntry10(BaseModel):
             "name": "ValDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     acct_svcr_ref: None | str = field(
         default=None,
@@ -5961,7 +6353,7 @@ class ReportEntry10(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 35,
-        }
+        },
     )
     avlbty: list[CashAvailability1] = field(
         default_factory=list,
@@ -5969,7 +6361,7 @@ class ReportEntry10(BaseModel):
             "name": "Avlbty",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     bk_tx_cd: BankTransactionCodeStructure4 = field(
         metadata={
@@ -5984,7 +6376,7 @@ class ReportEntry10(BaseModel):
             "name": "ComssnWvrInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_inf_ind: None | MessageIdentification2 = field(
         default=None,
@@ -5992,7 +6384,7 @@ class ReportEntry10(BaseModel):
             "name": "AddtlInfInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     amt_dtls: None | AmountAndCurrencyExchange3 = field(
         default=None,
@@ -6000,7 +6392,7 @@ class ReportEntry10(BaseModel):
             "name": "AmtDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     chrgs: None | Charges6 = field(
         default=None,
@@ -6008,7 +6400,7 @@ class ReportEntry10(BaseModel):
             "name": "Chrgs",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     tech_inpt_chanl: None | TechnicalInputChannel1Choice = field(
         default=None,
@@ -6016,7 +6408,7 @@ class ReportEntry10(BaseModel):
             "name": "TechInptChanl",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrst: None | TransactionInterest4 = field(
         default=None,
@@ -6024,7 +6416,7 @@ class ReportEntry10(BaseModel):
             "name": "Intrst",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     card_tx: None | CardEntry4 = field(
         default=None,
@@ -6032,7 +6424,7 @@ class ReportEntry10(BaseModel):
             "name": "CardTx",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ntry_dtls: list[EntryDetails9] = field(
         default_factory=list,
@@ -6040,7 +6432,7 @@ class ReportEntry10(BaseModel):
             "name": "NtryDtls",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_ntry_inf: None | str = field(
         default=None,
@@ -6050,8 +6442,10 @@ class ReportEntry10(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 500,
-        }
+        },
     )
+
+
 class AccountStatement9(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: str = field(
@@ -6069,7 +6463,7 @@ class AccountStatement9(BaseModel):
             "name": "StmtPgntn",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     elctrnc_seq_nb: None | Decimal = field(
         default=None,
@@ -6079,7 +6473,7 @@ class AccountStatement9(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 0,
-        }
+        },
     )
     rptg_seq: None | SequenceRange1Choice = field(
         default=None,
@@ -6087,7 +6481,7 @@ class AccountStatement9(BaseModel):
             "name": "RptgSeq",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     lgl_seq_nb: None | Decimal = field(
         default=None,
@@ -6097,7 +6491,7 @@ class AccountStatement9(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "total_digits": 18,
             "fraction_digits": 0,
-        }
+        },
     )
     cre_dt_tm: None | XmlDateTime = field(
         default=None,
@@ -6105,7 +6499,7 @@ class AccountStatement9(BaseModel):
             "name": "CreDtTm",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     fr_to_dt: None | DateTimePeriod1 = field(
         default=None,
@@ -6113,7 +6507,7 @@ class AccountStatement9(BaseModel):
             "name": "FrToDt",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     cpy_dplct_ind: None | CopyDuplicate1Code = field(
         default=None,
@@ -6121,7 +6515,7 @@ class AccountStatement9(BaseModel):
             "name": "CpyDplctInd",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     rptg_src: None | ReportingSource1Choice = field(
         default=None,
@@ -6129,7 +6523,7 @@ class AccountStatement9(BaseModel):
             "name": "RptgSrc",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     acct: CashAccount39 = field(
         metadata={
@@ -6144,7 +6538,7 @@ class AccountStatement9(BaseModel):
             "name": "RltdAcct",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     intrst: list[AccountInterest4] = field(
         default_factory=list,
@@ -6152,7 +6546,7 @@ class AccountStatement9(BaseModel):
             "name": "Intrst",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     bal: list[CashBalance8] = field(
         default_factory=list,
@@ -6161,7 +6555,7 @@ class AccountStatement9(BaseModel):
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_occurs": 1,
-        }
+        },
     )
     txs_summry: None | TotalTransactions6 = field(
         default=None,
@@ -6169,7 +6563,7 @@ class AccountStatement9(BaseModel):
             "name": "TxsSummry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     ntry: list[ReportEntry10] = field(
         default_factory=list,
@@ -6177,7 +6571,7 @@ class AccountStatement9(BaseModel):
             "name": "Ntry",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
     addtl_stmt_inf: None | str = field(
         default=None,
@@ -6187,8 +6581,10 @@ class AccountStatement9(BaseModel):
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_length": 1,
             "max_length": 500,
-        }
+        },
     )
+
+
 class BankToCustomerStatementV08(BaseModel):
     model_config = ConfigDict(defer_build=True)
     grp_hdr: GroupHeader81 = field(
@@ -6205,7 +6601,7 @@ class BankToCustomerStatementV08(BaseModel):
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
             "min_occurs": 1,
-        }
+        },
     )
     splmtry_data: list[SupplementaryData1] = field(
         default_factory=list,
@@ -6213,8 +6609,10 @@ class BankToCustomerStatementV08(BaseModel):
             "name": "SplmtryData",
             "type": "Element",
             "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
-        }
+        },
     )
+
+
 class Document(BaseModel):
     class Meta:
         namespace = "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"
