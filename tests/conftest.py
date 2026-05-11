@@ -55,3 +55,21 @@ def pain001_multi_pmt_inf_xml() -> str:
 def pain001_minimal_xml() -> str:
     """A pain.001 with only required fields — for optional-field omission tests."""
     return (FIXTURES_DIR / "test_pain001_minimal.xml").read_text(encoding="utf-8")
+
+
+@pytest.fixture
+def camt053_single_xml() -> str:
+    """A camt.053 with one statement, one balance, and one fully-detailed entry."""
+    return (FIXTURES_DIR / "test_camt053_single.xml").read_text(encoding="utf-8")
+
+
+@pytest.fixture
+def camt053_balances_xml() -> str:
+    """A camt.053 with one statement, three balance types, and no entries."""
+    return (FIXTURES_DIR / "test_camt053_balances.xml").read_text(encoding="utf-8")
+
+
+@pytest.fixture
+def camt053_batched_xml() -> str:
+    """A camt.053 with one batched entry covering two salary transactions."""
+    return (FIXTURES_DIR / "test_camt053_batched.xml").read_text(encoding="utf-8")

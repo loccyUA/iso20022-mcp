@@ -6,10 +6,14 @@ from fastmcp import FastMCP
 from pydantic import ValidationError
 
 from pactus.core.domain import ParsedPacs008
+from pactus.core.domain.camt053 import ParsedCamt053
 from pactus.core.domain.pacs002 import ParsedPacs002
 from pactus.core.domain.pain001 import ParsedPain001
 from pactus.core.parsers import (
     UnsafeXmlError,
+)
+from pactus.core.parsers import (
+    parse_camt053 as _parse_camt053,
 )
 from pactus.core.parsers import (
     parse_pacs002 as _parse_pacs002,
@@ -114,6 +118,37 @@ def parse_pain001(xml: str) -> ParsedPain001 | dict[str, str]:
         return {"error": "empty input"}
     try:
         return _parse_pain001(xml)
+    except UnsafeXmlError as e:
+        return {"error": f"unsafe input rejected: {e}"}
+    except ValidationError as e:
+        return {"error": f"validation failed: {e.error_count()} error(s) — {e.errors()[0]['msg']}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool
+def parse_camt053(xml: str) -> ParsedCamt053 | dict[str, str]:
+    """Parse a camt.053.001.08 Bank-to-Customer Cash Management Statement.
+
+    camt.053 is the structured account statement sent by a bank to its
+    customer. It reports balances (opening, closing, interim) and individual
+    debit/credit entries for a period, each optionally broken down to
+    individual transaction details. It is the primary source for automated
+    bank reconciliation.
+
+    Returns a structured ParsedCamt053 on success, or {"error": "..."} on
+    failure.
+
+    Args:
+        xml: The camt.053 XML message as a string.
+
+    Returns:
+        ParsedCamt053 on success, or {"error": "..."} on failure.
+    """
+    if not xml or not xml.strip():
+        return {"error": "empty input"}
+    try:
+        return _parse_camt053(xml)
     except UnsafeXmlError as e:
         return {"error": f"unsafe input rejected: {e}"}
     except ValidationError as e:

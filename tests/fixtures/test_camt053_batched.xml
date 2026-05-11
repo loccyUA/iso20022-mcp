@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>CAMT053-BATCH-001</MsgId>
+      <CreDtTm>2026-05-10T10:00:00</CreDtTm>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-BATCH-001</Id>
+      <Acct>
+        <Id><IBAN>DE89370400440532013000</IBAN></Id>
+        <Ccy>EUR</Ccy>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">95300.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-05-09</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">7700.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-05-09</Dt></BookgDt>
+        <ValDt><Dt>2026-05-09</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly>
+              <Cd>ICDT</Cd>
+              <SubFmlyCd>ESCT</SubFmlyCd>
+            </Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <Btch>
+            <MsgId>PAIN001-SALARY-20260509</MsgId>
+            <NbOfTxs>2</NbOfTxs>
+          </Btch>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>E2E-SAL-1</EndToEndId>
+            </Refs>
+            <Amt Ccy="EUR">3500.00</Amt>
+            <CdtDbtInd>DBIT</CdtDbtInd>
+          </TxDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>E2E-SAL-2</EndToEndId>
+            </Refs>
+            <Amt Ccy="EUR">4200.00</Amt>
+            <CdtDbtInd>DBIT</CdtDbtInd>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

@@ -11,6 +11,23 @@ import lxml.etree as _etree
 from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata_pydantic.bindings import XmlParser
 
+from pactus.core.domain.camt053 import (
+    Balance as Camt053Balance,
+)
+from pactus.core.domain.camt053 import (
+    Entry as Camt053Entry,
+)
+from pactus.core.domain.camt053 import (
+    EntryDetails as Camt053EntryDetails,
+)
+from pactus.core.domain.camt053 import (
+    GroupHeader as Camt053GroupHeader,
+)
+from pactus.core.domain.camt053 import (
+    ParsedCamt053,
+    Statement,
+    TransactionDetails,
+)
 from pactus.core.domain.common import Agent, Amount, Party
 from pactus.core.domain.pacs002 import (
     GroupHeader as Pacs002GroupHeader,
@@ -36,6 +53,7 @@ from pactus.core.domain.pain001 import (
 from pactus.core.domain.pain001 import (
     Transaction as Pain001Transaction,
 )
+from pactus.generated.camt_053_001_08 import Document as Camt053Document
 from pactus.generated.pacs_002_001_10 import Document as Pacs002Document
 from pactus.generated.pacs_008_001_08 import Document as Pacs008Document
 from pactus.generated.pain_001_001_09 import Document as Pain001Document
@@ -344,4 +362,154 @@ def _project_pain001_transaction(tx) -> Pain001Transaction:  # type: ignore[no-u
         creditor_account_iban=creditor_iban,
         creditor_agent=creditor_agent,
         remittance_info=remittance_lines,
+    )
+
+
+# ---------------------------------------------------------------------------
+# camt.053.001.08 parser
+# ---------------------------------------------------------------------------
+
+
+def parse_camt053(xml: str) -> ParsedCamt053:
+    """Parse a camt.053.001.08 Bank-to-Customer Statement.
+
+    Raises:
+        UnsafeXmlError: if the input contains DOCTYPE or ENTITY declarations.
+        ValidationError: if the XML doesn't conform to camt.053.001.08.
+    """
+    _reject_unsafe_xml(xml)
+    generated = _xml_parser.from_string(xml, Camt053Document)
+    return _project_camt053(generated)
+
+
+def _project_camt053(doc: Camt053Document) -> ParsedCamt053:
+    """Project the xsdata-generated Camt053Document into the curated domain model."""
+    body = doc.bk_to_cstmr_stmt
+    grp = body.grp_hdr
+    return ParsedCamt053(
+        group_header=Camt053GroupHeader(
+            message_id=grp.msg_id,
+            creation_datetime=grp.cre_dt_tm.to_datetime(),
+        ),
+        statements=[_project_statement(stmt) for stmt in body.stmt],
+    )
+
+
+def _project_statement(stmt) -> Statement:  # type: ignore[no-untyped-def]
+    """Project one xsdata AccountStatement9 into the domain Statement."""
+    creation_dt = stmt.cre_dt_tm.to_datetime() if stmt.cre_dt_tm is not None else None
+
+    from_dt = None
+    to_dt = None
+    if stmt.fr_to_dt is not None:
+        from_dt = stmt.fr_to_dt.fr_dt_tm.to_datetime()
+        to_dt = stmt.fr_to_dt.to_dt_tm.to_datetime()
+
+    account_iban = stmt.acct.id.iban if stmt.acct.id.iban is not None else None
+
+    return Statement(
+        statement_id=stmt.id,
+        creation_datetime=creation_dt,
+        from_datetime=from_dt,
+        to_datetime=to_dt,
+        account_iban=account_iban,
+        account_currency=stmt.acct.ccy,
+        balances=[_project_balance(bal) for bal in stmt.bal],
+        entries=[_project_entry(ntry) for ntry in stmt.ntry],
+    )
+
+
+def _project_balance(bal) -> Camt053Balance:  # type: ignore[no-untyped-def]
+    """Project one xsdata CashBalance8 into the domain Balance."""
+    type_code = bal.tp.cd_or_prtry.cd or bal.tp.cd_or_prtry.prtry or "UNKN"
+
+    if bal.dt.dt is not None:
+        balance_date = bal.dt.dt.to_date()
+    else:
+        balance_date = bal.dt.dt_tm.to_datetime().date()
+
+    return Camt053Balance(
+        type_code=type_code,
+        amount=Amount(value=bal.amt.value, currency=bal.amt.ccy),
+        credit_debit=bal.cdt_dbt_ind.value,
+        balance_date=balance_date,
+    )
+
+
+def _project_entry(ntry) -> Camt053Entry:  # type: ignore[no-untyped-def]
+    """Project one xsdata ReportEntry10 into the domain Entry."""
+    status = ntry.sts.cd or ntry.sts.prtry or "UNKN"
+
+    booking_date = None
+    if ntry.bookg_dt is not None:
+        if ntry.bookg_dt.dt is not None:
+            booking_date = ntry.bookg_dt.dt.to_date()
+        elif ntry.bookg_dt.dt_tm is not None:
+            booking_date = ntry.bookg_dt.dt_tm.to_datetime().date()
+
+    value_date = None
+    if ntry.val_dt is not None:
+        if ntry.val_dt.dt is not None:
+            value_date = ntry.val_dt.dt.to_date()
+        elif ntry.val_dt.dt_tm is not None:
+            value_date = ntry.val_dt.dt_tm.to_datetime().date()
+
+    bank_tx_domain = None
+    bank_tx_family = None
+    bank_tx_subfamily = None
+    if ntry.bk_tx_cd.domn is not None:
+        bank_tx_domain = ntry.bk_tx_cd.domn.cd
+        bank_tx_family = ntry.bk_tx_cd.domn.fmly.cd
+        bank_tx_subfamily = ntry.bk_tx_cd.domn.fmly.sub_fmly_cd
+
+    return Camt053Entry(
+        entry_ref=ntry.ntry_ref,
+        amount=Amount(value=ntry.amt.value, currency=ntry.amt.ccy),
+        credit_debit=ntry.cdt_dbt_ind.value,
+        status=status,
+        booking_date=booking_date,
+        value_date=value_date,
+        bank_tx_domain=bank_tx_domain,
+        bank_tx_family=bank_tx_family,
+        bank_tx_subfamily=bank_tx_subfamily,
+        entry_details=[_project_entry_details(dtls) for dtls in ntry.ntry_dtls],
+    )
+
+
+def _project_entry_details(dtls) -> Camt053EntryDetails:  # type: ignore[no-untyped-def]
+    """Project one xsdata EntryDetails9 into the domain EntryDetails."""
+    batch_message_id = None
+    if dtls.btch is not None:
+        batch_message_id = dtls.btch.msg_id
+
+    return Camt053EntryDetails(
+        batch_message_id=batch_message_id,
+        transactions=[_project_camt053_tx_details(tx) for tx in dtls.tx_dtls],
+    )
+
+
+def _project_camt053_tx_details(tx) -> TransactionDetails:  # type: ignore[no-untyped-def]
+    """Project one xsdata EntryTransaction10 into the domain TransactionDetails."""
+    end_to_end_id = None
+    instruction_id = None
+    transaction_id = None
+    if tx.refs is not None:
+        end_to_end_id = tx.refs.end_to_end_id
+        instruction_id = tx.refs.instr_id
+        transaction_id = tx.refs.tx_id
+
+    amount = None
+    if tx.amt is not None:
+        amount = Amount(value=tx.amt.value, currency=tx.amt.ccy)
+
+    credit_debit = None
+    if tx.cdt_dbt_ind is not None:
+        credit_debit = tx.cdt_dbt_ind.value
+
+    return TransactionDetails(
+        end_to_end_id=end_to_end_id,
+        instruction_id=instruction_id,
+        transaction_id=transaction_id,
+        amount=amount,
+        credit_debit=credit_debit,
     )
