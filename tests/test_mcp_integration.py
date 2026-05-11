@@ -19,6 +19,12 @@ from pactus.mcp_server import mcp
 # ---------------------------------------------------------------------------
 
 _ALL_PARSE_TOOLS = ["parse_pacs008", "parse_pacs002", "parse_pain001", "parse_camt053"]
+_ALL_VALIDATE_TOOLS = [
+    "validate_pacs008",
+    "validate_pacs002",
+    "validate_pain001",
+    "validate_camt053",
+]
 
 _DOCTYPE_XML = '<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY x "y">]><root/>'
 
@@ -46,11 +52,21 @@ _MALFORMED_XML: dict[str, str] = {
 
 
 class TestToolsList:
-    async def test_exposes_all_five_tools(self) -> None:
+    async def test_exposes_all_nine_tools(self) -> None:
         async with Client(mcp) as c:
             tools = await c.list_tools()
             names = {t.name for t in tools}
-        assert names == {"ping", "parse_pacs008", "parse_pacs002", "parse_pain001", "parse_camt053"}
+        assert names == {
+            "ping",
+            "parse_pacs008",
+            "parse_pacs002",
+            "parse_pain001",
+            "parse_camt053",
+            "validate_pacs008",
+            "validate_pacs002",
+            "validate_pain001",
+            "validate_camt053",
+        }
 
 
 # ---------------------------------------------------------------------------
@@ -161,3 +177,90 @@ class TestParseCamt053HappyPath:
         assert stmt.statement_id == "STMT-2026-05-09-001"
         assert len(stmt.balances) >= 1
         assert stmt.balances[0].amount.currency is not None
+
+
+# ---------------------------------------------------------------------------
+# Validate tools — MCP layer tests
+# (logic / violation fields covered by test_validators.py unit tests)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("tool", _ALL_VALIDATE_TOOLS)
+@pytest.mark.parametrize(
+    "xml",
+    ["", "   \n\t "],
+    ids=["empty_string", "whitespace_only"],
+)
+async def test_validate_empty_input(tool: str, xml: str) -> None:
+    async with Client(mcp) as c:
+        r = await c.call_tool(tool, {"xml": xml})
+    assert r.data == {"error": "empty input"}
+
+
+@pytest.mark.parametrize("tool", _ALL_VALIDATE_TOOLS)
+async def test_validate_doctype_rejected(tool: str) -> None:
+    async with Client(mcp) as c:
+        r = await c.call_tool(tool, {"xml": _DOCTYPE_XML})
+    assert isinstance(r.data, dict)
+    assert r.data["error"].startswith("unsafe input rejected:")
+
+
+@pytest.mark.parametrize(
+    "tool,fixture_name",
+    [
+        ("validate_pacs008", "pacs008_single_xml"),
+        ("validate_pacs002", "pacs002_single_xml"),
+        ("validate_pain001", "pain001_single_xml"),
+        ("validate_camt053", "camt053_single_xml"),
+    ],
+)
+async def test_validate_valid_document(
+    tool: str, fixture_name: str, request: pytest.FixtureRequest
+) -> None:
+    xml: str = request.getfixturevalue(fixture_name)
+    async with Client(mcp) as c:
+        r = await c.call_tool(tool, {"xml": xml})
+    assert r.data.valid is True
+    assert r.data.violations == []
+
+
+@pytest.mark.parametrize(
+    "tool,invalid_xml",
+    [
+        (
+            "validate_pacs008",
+            '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">'
+            "<WrongElement/></Document>",
+        ),
+        (
+            "validate_pacs002",
+            '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.10">'
+            "<WrongElement/></Document>",
+        ),
+        (
+            "validate_pain001",
+            '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">'
+            "<WrongElement/></Document>",
+        ),
+        (
+            "validate_camt053",
+            '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">'
+            "<WrongElement/></Document>",
+        ),
+    ],
+)
+async def test_validate_invalid_document(tool: str, invalid_xml: str) -> None:
+    async with Client(mcp) as c:
+        r = await c.call_tool(tool, {"xml": invalid_xml})
+    assert r.data.valid is False
+    assert len(r.data.violations) >= 1
+    assert r.data.violations[0].message
+
+
+@pytest.mark.parametrize("tool", _ALL_VALIDATE_TOOLS)
+async def test_validate_malformed_xml(tool: str) -> None:
+    async with Client(mcp) as c:
+        r = await c.call_tool(tool, {"xml": "<unclosed"})
+    assert r.data.valid is False
+    assert len(r.data.violations) == 1
+    assert r.data.violations[0].level == "FATAL"

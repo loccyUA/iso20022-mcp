@@ -13,6 +13,7 @@ from pactus.core.domain.pacs008 import (
     ParsedPacs008,
     SettlementMethod,
 )
+from pactus.core.domain.validation import ValidationReport, ValidationViolation
 
 __all__ = [
     "Agent",
@@ -23,4 +24,6 @@ __all__ = [
     "ParsedPacs008",
     "Party",
     "SettlementMethod",
+    "ValidationReport",
+    "ValidationViolation",
 ]

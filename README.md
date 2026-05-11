@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/pactus-mcp.svg)](https://pypi.org/project/pactus-mcp/)
 
-Pactus is an MCP server for parsing ISO 20022 payment messages directly from chat. It exposes five tools that let AI assistants inspect `pacs.008`, `pacs.002`, `pain.001`, and `camt.053` messages — the message types at the centre of the CBPR+ migration — without leaving the conversation. It is aimed at developers and bank-integration teams who need to read, debug, or explain ISO 20022 traffic during the transition away from MT messages.
+Pactus is an MCP server for parsing and validating ISO 20022 payment messages directly from chat. It exposes nine tools that let AI assistants inspect or validate `pacs.008`, `pacs.002`, `pain.001`, and `camt.053` messages — the message types at the centre of the CBPR+ migration — without leaving the conversation. It is aimed at developers and bank-integration teams who need to read, debug, or explain ISO 20022 traffic during the transition away from MT messages.
 
 ## Status
 
@@ -70,8 +70,12 @@ Restart Claude Desktop. The Pactus tools will appear in the tools menu.
 | `parse_pacs002` | `pacs.002.001.10` | Parse a FI-to-FI Payment Status Report. |
 | `parse_pain001` | `pain.001.001.09` | Parse a Customer Credit Transfer Initiation. |
 | `parse_camt053` | `camt.053.001.08` | Parse a Bank-to-Customer Account Statement. |
+| `validate_pacs008` | `pacs.008.001.08` | Validate a FI-to-FI Customer Credit Transfer against its XSD. |
+| `validate_pacs002` | `pacs.002.001.10` | Validate a FI-to-FI Payment Status Report against its XSD. |
+| `validate_pain001` | `pain.001.001.09` | Validate a Customer Credit Transfer Initiation against its XSD. |
+| `validate_camt053` | `camt.053.001.08` | Validate a Bank-to-Customer Account Statement against its XSD. |
 
-All four parse tools return a structured Pydantic model on success, or `{"error": "..."}` on failure. Errors never raise; the agent can explain what went wrong.
+The four parse tools return a structured Pydantic model on success, or `{"error": "..."}` on failure. The four validate tools return a `ValidationReport` listing every XSD violation with line, column, and path information — even when there are multiple errors. All tools never raise; the agent can explain what went wrong.
 
 ## Tool reference
 
@@ -227,9 +231,48 @@ All four parse tools return a structured Pydantic model on success, or `{"error"
 
 </details>
 
+### validate_pacs008
+
+Validates a `pacs.008.001.08` message against its XSD and returns every violation in one pass. Use this when you need to know all the errors in a message rather than just the first one the parser encounters.
+
+<details>
+<summary>Example response (invalid document)</summary>
+
+```json
+{
+  "valid": false,
+  "schema_id": "pacs.008.001.08",
+  "violations": [
+    {
+      "line": 5,
+      "column": 3,
+      "path": "/{urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08}Document/{urn:...}FIToFICstmrCdtTrf",
+      "message": "Element '{urn:...}WrongElement': This element is not expected.",
+      "domain": "SCHEMASV",
+      "type_name": "SCHEMAV_CVC_COMPLEX_TYPE_2_4",
+      "level": "ERROR"
+    }
+  ]
+}
+```
+
+</details>
+
+### validate_pacs002
+
+Validates a `pacs.002.001.10` message against its XSD and returns every violation in one pass.
+
+### validate_pain001
+
+Validates a `pain.001.001.09` message against its XSD and returns every violation in one pass.
+
+### validate_camt053
+
+Validates a `camt.053.001.08` message against its XSD and returns every violation in one pass.
+
 ## Security model
 
-- **XXE and entity-expansion hardening:** All four parsers reject input containing `<!DOCTYPE>` or `<!ENTITY>` declarations before any XML parsing occurs. This blocks XXE file-read, SSRF, and billion-laughs DoS patterns.
+- **XXE and entity-expansion hardening:** All parse and validate tools reject input containing `<!DOCTYPE>` or `<!ENTITY>` declarations before any XML parsing occurs. This blocks XXE file-read, SSRF, and billion-laughs DoS patterns.
 - **Build integrity:** Generated xsdata models are SHA-256 verified in CI on every commit (`sha256sum -c GENERATED_HASHES.txt`). Regeneration is reproducible from the vendored XSDs.
 - **Supply chain:** GitHub Actions workflows use SHA-pinned action references (commit-hash `@` pins, not mutable tags).
 - **Distribution integrity:** PyPI artifacts are published via OIDC Trusted Publishing and signed with Sigstore. SBOMs (CycloneDX and SPDX) are generated and vulnerability-scanned on every CI run; release artifacts include the SBOM.

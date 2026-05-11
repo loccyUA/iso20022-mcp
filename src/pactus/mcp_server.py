@@ -11,6 +11,7 @@ from pactus.core.domain import ParsedPacs008
 from pactus.core.domain.camt053 import ParsedCamt053
 from pactus.core.domain.pacs002 import ParsedPacs002
 from pactus.core.domain.pain001 import ParsedPain001
+from pactus.core.domain.validation import ValidationReport
 from pactus.core.parsers import (
     UnsafeXmlError,
 )
@@ -25,6 +26,18 @@ from pactus.core.parsers import (
 )
 from pactus.core.parsers import (
     parse_pain001 as _parse_pain001,
+)
+from pactus.core.validators import (
+    validate_camt053 as _validate_camt053,
+)
+from pactus.core.validators import (
+    validate_pacs002 as _validate_pacs002,
+)
+from pactus.core.validators import (
+    validate_pacs008 as _validate_pacs008,
+)
+from pactus.core.validators import (
+    validate_pain001 as _validate_pain001,
 )
 
 mcp = FastMCP("pactus")
@@ -157,6 +170,110 @@ def parse_camt053(xml: str) -> ParsedCamt053 | dict[str, str]:
         return {"error": f"unsafe input rejected: {e}"}
     except ValidationError as e:
         return {"error": f"validation failed: {e.error_count()} error(s) — {e.errors()[0]['msg']}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool
+def validate_pacs008(xml: str) -> ValidationReport | dict[str, str]:
+    """Validate a pacs.008.001.08 message against its XSD.
+
+    Returns a structured ValidationReport listing every XSD violation found,
+    with line/column/path information. Unlike parse_pacs008, this does not
+    stop at the first error — all violations are reported so the user can fix
+    them in one pass.
+
+    Args:
+        xml: The pacs.008 XML message as a string.
+
+    Returns:
+        ValidationReport on success, or {"error": "..."} on unsafe input or
+        unexpected failure.
+    """
+    if not xml or not xml.strip():
+        return {"error": "empty input"}
+    try:
+        return _validate_pacs008(xml)
+    except UnsafeXmlError as e:
+        return {"error": f"unsafe input rejected: {e}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool
+def validate_pacs002(xml: str) -> ValidationReport | dict[str, str]:
+    """Validate a pacs.002.001.10 message against its XSD.
+
+    Returns a structured ValidationReport listing every XSD violation found,
+    with line/column/path information. Unlike parse_pacs002, this does not
+    stop at the first error — all violations are reported so the user can fix
+    them in one pass.
+
+    Args:
+        xml: The pacs.002 XML message as a string.
+
+    Returns:
+        ValidationReport on success, or {"error": "..."} on unsafe input or
+        unexpected failure.
+    """
+    if not xml or not xml.strip():
+        return {"error": "empty input"}
+    try:
+        return _validate_pacs002(xml)
+    except UnsafeXmlError as e:
+        return {"error": f"unsafe input rejected: {e}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool
+def validate_pain001(xml: str) -> ValidationReport | dict[str, str]:
+    """Validate a pain.001.001.09 message against its XSD.
+
+    Returns a structured ValidationReport listing every XSD violation found,
+    with line/column/path information. Unlike parse_pain001, this does not
+    stop at the first error — all violations are reported so the user can fix
+    them in one pass.
+
+    Args:
+        xml: The pain.001 XML message as a string.
+
+    Returns:
+        ValidationReport on success, or {"error": "..."} on unsafe input or
+        unexpected failure.
+    """
+    if not xml or not xml.strip():
+        return {"error": "empty input"}
+    try:
+        return _validate_pain001(xml)
+    except UnsafeXmlError as e:
+        return {"error": f"unsafe input rejected: {e}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool
+def validate_camt053(xml: str) -> ValidationReport | dict[str, str]:
+    """Validate a camt.053.001.08 message against its XSD.
+
+    Returns a structured ValidationReport listing every XSD violation found,
+    with line/column/path information. Unlike parse_camt053, this does not
+    stop at the first error — all violations are reported so the user can fix
+    them in one pass.
+
+    Args:
+        xml: The camt.053 XML message as a string.
+
+    Returns:
+        ValidationReport on success, or {"error": "..."} on unsafe input or
+        unexpected failure.
+    """
+    if not xml or not xml.strip():
+        return {"error": "empty input"}
+    try:
+        return _validate_camt053(xml)
+    except UnsafeXmlError as e:
+        return {"error": f"unsafe input rejected: {e}"}
     except Exception as e:
         return {"error": f"{type(e).__name__}: {e}"}
 

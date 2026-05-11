@@ -42,8 +42,8 @@
         <NtryDtls>
           <TxDtls>
             <Refs>
-              <EndToEndId>E2E-REF-001</EndToEndId>
               <InstrId>INSTR-001</InstrId>
+              <EndToEndId>E2E-REF-001</EndToEndId>
             </Refs>
             <Amt Ccy="EUR">1500.00</Amt>
             <CdtDbtInd>DBIT</CdtDbtInd>
