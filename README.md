@@ -1,6 +1,6 @@
 # Pactus
 
-[![CI](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/iso20022-mcp/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/pactus-mcp.svg)](https://pypi.org/project/pactus-mcp/)
 
 Pactus is an MCP server for parsing ISO 20022 payment messages directly from chat. It exposes five tools that let AI assistants inspect `pacs.008`, `pacs.002`, `pain.001`, and `camt.053` messages — the message types at the centre of the CBPR+ migration — without leaving the conversation. It is aimed at developers and bank-integration teams who need to read, debug, or explain ISO 20022 traffic during the transition away from MT messages.
 
@@ -25,11 +25,28 @@ uv run pytest
 
 ## Connecting to Claude Desktop
 
+Install via uvx for zero-setup use, or run from a local checkout for development.
+
 Add Pactus to your Claude Desktop config:
 
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 - **Linux:** `~/.config/Claude/claude_desktop_config.json`
+
+### From PyPI (recommended)
+
+```json
+{
+  "mcpServers": {
+    "pactus": {
+      "command": "uvx",
+      "args": ["pactus-mcp"]
+    }
+  }
+}
+```
+
+### From a local clone (for development)
 
 ```json
 {
